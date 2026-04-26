@@ -3,13 +3,22 @@ import Razorpay from "razorpay";
 
 export const dynamic = "force-dynamic";
 
-const razorpay = new Razorpay({
-  key_id: process.env.RAZORPAY_KEY_ID!,
-  key_secret: process.env.RAZORPAY_KEY_SECRET!,
-});
-
 export async function POST(req: Request) {
   try {
+    // ✅ Check env variables (important for Vercel)
+    if (!process.env.RAZORPAY_KEY_ID || !process.env.RAZORPAY_KEY_SECRET) {
+      return NextResponse.json(
+        { error: "Razorpay keys missing" },
+        { status: 500 }
+      );
+    }
+
+    // ✅ Initialize INSIDE function (FIX)
+    const razorpay = new Razorpay({
+      key_id: process.env.RAZORPAY_KEY_ID,
+      key_secret: process.env.RAZORPAY_KEY_SECRET,
+    });
+
     const { amount } = await req.json();
 
     const options = {
@@ -19,8 +28,14 @@ export async function POST(req: Request) {
     };
 
     const order = await razorpay.orders.create(options);
+
     return NextResponse.json(order);
-  } catch {
-    return NextResponse.json({ error: "Order Creation Failed" }, { status: 500 });
+  } catch (err) {
+    console.error("Razorpay Error:", err);
+
+    return NextResponse.json(
+      { error: "Order Creation Failed" },
+      { status: 500 }
+    );
   }
 }
