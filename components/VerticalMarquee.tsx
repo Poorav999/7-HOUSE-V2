@@ -71,14 +71,14 @@ export default function VerticalMarquee({ products }: VerticalMarqueeProps) {
               <Link
                 href={`/product/${product.id}`}
                 key={`${product.id}-${idx}`}
-                className="block group px-4 md:px-6"
+                className="block group px-4 md:px-6 h-[520px] flex flex-col"
                 onMouseEnter={() => handleItemHover()}
                 onMouseLeave={handleItemLeave}
               >
                 <motion.div
                   whileHover={{ scale: 1.05, rotate: -1 }}
                   transition={{ type: "spring", stiffness: 300, damping: 20 }}
-                  className="relative w-full aspect-[4/5] bg-[#1b1030] overflow-hidden mb-4 cartoon-border comic-shadow"
+                  className="relative w-full flex-1 bg-[#1b1030] overflow-hidden mb-4 cartoon-border comic-shadow"
                 >
                   <Image
                     src={!product.images?.[0] ? "/shadyblue.jpg" : (product.images[0].startsWith("http") || product.images[0].startsWith("/") ? product.images[0] : `/${product.images[0]}`)}
@@ -116,12 +116,12 @@ export default function VerticalMarquee({ products }: VerticalMarqueeProps) {
                   )}
                 </motion.div>
                 
-                {/* Product Info with better spacing and background */}
-                <div className="flex flex-col gap-2 mb-4 bg-[#1a1026] border-3 border-[#2e1b46] p-3 rounded-sm" style={{ boxShadow: '3px 3px 0 #2e1b46' }}>
-                  <h4 className="text-xs md:text-sm font-black uppercase tracking-wide text-[#f6ecff] group-hover:text-[#ff8f3f] transition-colors duration-300 leading-tight min-h-[2.5rem] flex items-center">
+                {/* Product Info with fixed height */}
+                <div className="flex flex-col gap-2 bg-[#1a1026] border-3 border-[#2e1b46] p-3 rounded-sm h-[120px]" style={{ boxShadow: '3px 3px 0 #2e1b46' }}>
+                  <h4 className="text-xs md:text-sm font-black uppercase tracking-wide text-[#f6ecff] group-hover:text-[#ff8f3f] transition-colors duration-300 leading-tight h-[2.5rem] flex items-center overflow-hidden line-clamp-2">
                     {product.name}
                   </h4>
-                  <div className="flex items-center gap-2 flex-wrap pt-1 border-t-2 border-[#ff7a1a]">
+                  <div className="flex items-center gap-2 flex-wrap pt-1 border-t-2 border-[#ff7a1a] flex-1">
                     <span className="text-sm md:text-base font-syncopate font-bold text-white bg-[#5f2a8a] px-3 py-1 border-2 border-[#2e1b46] whitespace-nowrap" style={{ boxShadow: '2px 2px 0 #2e1b46' }}>
                       ₹{product.price}
                     </span>

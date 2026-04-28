@@ -14,10 +14,9 @@ interface Product {
 
 interface ProductMarqueeProps {
   products: Product[];
-  speed?: number;
 }
 
-export default function ProductMarquee({ products, speed = 50 }: ProductMarqueeProps) {
+export default function ProductMarquee({ products }: ProductMarqueeProps) {
   const [isPaused, setIsPaused] = useState(false);
   
   // Create a doubled array for seamless infinite looping
@@ -62,7 +61,7 @@ function MarqueeItem({ product }: { product: Product }) {
 
   return (
     <motion.div
-      className="relative w-[360px] shrink-0 group"
+      className="relative w-[320px] shrink-0 group"
     >
       <Link href={`/product/${product.id}`} className="block">
         <div className="relative flex flex-col gap-5 rounded-2xl bg-[#e5e7eb] p-5 shadow-2xl transition-all duration-500 group-hover:shadow-[0_40px_80px_rgba(255,255,255,0.08)] group-hover:-translate-y-2">
@@ -76,7 +75,7 @@ function MarqueeItem({ product }: { product: Product }) {
           </div>
 
           {/* Optimized Product Container */}
-          <div className="relative flex h-[380px] w-full items-center justify-center overflow-hidden rounded-xl bg-[#0a0a0a] shadow-[inset_0_0_60px_rgba(0,0,0,1)]">
+          <div className="relative flex h-[400px] w-full items-center justify-center overflow-hidden rounded-xl bg-[#0a0a0a] shadow-[inset_0_0_60px_rgba(0,0,0,1)]">
              {/* Dynamic Backglow */}
              <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-48 h-48 bg-white/5 blur-[60px] group-hover:bg-white/10 transition-colors duration-500" />
              
@@ -88,7 +87,7 @@ function MarqueeItem({ product }: { product: Product }) {
              
              {/* Actual Image */}
              {imgSrc ? (
-               <div className="relative z-10 h-full w-full p-12 transition-transform duration-700 group-hover:scale-110">
+               <div className="relative z-10 h-full w-full p-6 transition-transform duration-700 group-hover:scale-110">
                  <Image
                    src={imgSrc}
                    alt={product.name}

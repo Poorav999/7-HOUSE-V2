@@ -5,6 +5,7 @@ import Navbar from "@/components/Navbar";
 import Providers from "@/components/Providers";
 import Footer from "@/components/Footer";
 import CurrencyModal from "@/components/CurrencyModal";
+import PromoBar from "@/components/PromoBar";
 
 const spaceGrotesk = Space_Grotesk({ subsets: ["latin"], variable: "--font-space" });
 const syncopate = Syncopate({ weight: ["400", "700"], subsets: ["latin"], variable: "--font-syncopate" });
@@ -27,6 +28,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
       >
         <Providers>
           <CurrencyModal />
+          <PromoBar />
           <Navbar />
           {children}
           <Footer />

@@ -3,10 +3,14 @@
 import { useEffect, useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
-import { AnimatePresence, motion, type Variants } from "framer-motion";
+import { AnimatePresence, motion } from "framer-motion";
 import ProductMarquee from "@/components/ProductMarquee";
 import AboutScroller from "@/components/AboutScroller";
 import IntroSequence from "@/components/IntroSequence";
+import DropCountdown from "@/components/DropCountdown";
+import Lookbook from "@/components/Lookbook";
+import Manifesto from "@/components/Manifesto";
+import NewsletterVIP from "@/components/NewsletterVIP";
 
 interface Product {
   id: string;
@@ -15,30 +19,11 @@ interface Product {
   images: string[];
 }
 
-const cardVariants: Variants = {
-  hidden: { opacity: 0, y: 90, scale: 0.96 },
-  visible: {
-    opacity: 1,
-    y: 0,
-    scale: 1,
-    transition: { duration: 0.75, ease: "easeOut" },
-  },
-};
 
-const glowHover = {
-  scale: 1.1,
-  filter: "brightness(1.5) drop-shadow(0 0 15px rgba(255, 255, 255, 0.8))",
-};
 
-function getProductImage(product: Product) {
-  const image = product.images?.[0];
 
-  if (!image) {
-    return null;
-  }
 
-  return image.startsWith("http") || image.startsWith("/") ? image : `/${image}`;
-}
+
 
 export default function HomePage() {
   const [products, setProducts] = useState<Product[]>([]);
@@ -154,6 +139,9 @@ export default function HomePage() {
         </div>
       </section>
 
+      {/* ═══════════ Drop Countdown ═══════════ */}
+      <DropCountdown targetISO="2026-06-07T19:00:00+05:30" dropName="VAULT 07" />
+
       {/* ═══════════ About Story Section (Parallax) ═══════════ */}
       <AboutScroller />
 
@@ -196,6 +184,12 @@ export default function HomePage() {
           )}
         </AnimatePresence>
       </section>
+
+      {/* ═══════════ Lookbook ═══════════ */}
+      <Lookbook />
+
+      {/* ═══════════ Manifesto ═══════════ */}
+      <Manifesto />
 
       {/* ═══════════ Why 7 House Section ═══════════ */}
       <section className="relative w-full bg-[#111] py-24 border-t border-white/5 overflow-hidden">
@@ -273,6 +267,9 @@ export default function HomePage() {
           </div>
         </div>
       </section>
+
+      {/* ═══════════ Newsletter VIP ═══════════ */}
+      <NewsletterVIP onSubscribe={async (email) => { console.log("subscribe:", email); }} />
     </main>
   );
 }

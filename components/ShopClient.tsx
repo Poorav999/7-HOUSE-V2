@@ -265,7 +265,7 @@ export default function ShopClient({ products, categories }: ShopClientProps) {
               >
                 <Link href={`/product/${product.id}`} className="flex flex-col h-full">
                   {/* Image Container */}
-                  <div className="relative aspect-square bg-[#0c0c0c] flex items-center justify-center p-12 overflow-hidden border-b border-white/5">
+                  <div className="relative aspect-[4/5] bg-[#0c0c0c] flex items-center justify-center p-6 overflow-hidden border-b border-white/5">
                     {/* Icons */}
                     <div className="absolute top-4 left-4 z-20">
                       <button className="text-white/20 hover:text-red-600 transition-colors">

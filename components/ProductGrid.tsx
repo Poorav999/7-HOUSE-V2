@@ -117,8 +117,10 @@ export default function ProductGrid({ products }: ProductGridProps) {
                       src={!product.images?.[0] ? "/shadyblue.jpg" : (product.images[0].startsWith("http") || product.images[0].startsWith("/") ? product.images[0] : `/${product.images[0]}`)}
                       alt={product.name}
                       fill
-                      unoptimized
+                      unoptimized={true}
+                      priority={false}
                       className="object-cover p-6"
+                      sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 25vw"
                     />
                   </motion.div>
 

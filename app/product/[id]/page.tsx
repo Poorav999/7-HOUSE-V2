@@ -3,7 +3,7 @@ import { notFound } from "next/navigation";
 import Image from "next/image";
 import ProductClientActions from "@/components/ProductClientActions";
 import type { Product } from "@/components/CartContext";
-import { motion } from "framer-motion";
+
 
 export default async function ProductPage({ params }: { params: Promise<{ id: string }> }) {
   const resolvedParams = await params;
@@ -65,10 +65,13 @@ export default async function ProductPage({ params }: { params: Promise<{ id: st
                   src={imageUrl}
                   alt={typedProduct.name}
                   fill
-                  unoptimized
+                  unoptimized={true}
+                  priority={true}
                   className="object-contain p-8"
-                  priority
                   sizes="(max-width: 1024px) 100vw, 50vw"
+                  onError={() => {
+                    console.error('Image failed to load:', imageUrl);
+                  }}
                 />
                 
                 {/* Corner accent lines */}

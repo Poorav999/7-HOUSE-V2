@@ -9,139 +9,123 @@ export async function GET(req: Request) {
   if (seed === "true") {
     const products = [
       {
-        name: "Green Hoodie",
+        name: "Green Syndicate Hoodie",
         price: 1999,
         category: "Hoodies",
-        description: "Premium heavyweight green hoodie with signature syndicate wash. Perfect for the underground culture.",
+        description: "Premium heavyweight green hoodie with signature syndicate wash and green Z/A logo. Perfect for the underground culture.",
         images: ["/Greenhoodie.png"],
         stock: 30,
       },
       {
-        name: "Grey Hoodie",
+        name: "Purple Syndicate Hoodie",
         price: 1999,
         category: "Hoodies",
-        description: "Comfortable grey hoodie with dropped shoulder fit. 100% cotton blend for maximum comfort.",
-        images: ["/Greyhoodie.png"],
-        stock: 35,
-      },
-      {
-        name: "Purple Hoodie",
-        price: 1999,
-        category: "Hoodies",
-        description: "Bold purple hoodie designed for the 7HOUSES syndicate. Limited edition colorway.",
-        images: ["/Purplehoodie.png"],
+        description: "Bold purple hoodie with pink/purple Z/A logo designed for the 7HOUSES syndicate. Limited edition colorway.",
+        images: ["/PurplehoodieOG.png"],
         stock: 25,
       },
       {
-        name: "Red Hoodie",
+        name: "Red Syndicate Hoodie",
         price: 1999,
         category: "Hoodies",
-        description: "Iconic red hoodie with premium construction. Part of the exclusive syndicate collection.",
-        images: ["/Redhoodie.png"],
+        description: "Iconic red hoodie with gold Z/A logo and premium construction. Part of the exclusive syndicate collection.",
+        images: ["/RedhoodieOG.png"],
         stock: 28,
       },
       {
-        name: "White Hoodie",
+        name: "Cream Floral Syndicate Hoodie",
         price: 1999,
         category: "Hoodies",
-        description: "Clean white hoodie perfect for layering. Premium quality with reinforced stitching.",
+        description: "Clean cream hoodie with colorful floral Z/A logo. Premium quality with reinforced stitching.",
         images: ["/Whitehoodie.png"],
         stock: 32,
       },
       {
-        name: "Chrome 7Houses Blue Hoodie",
+        name: "Blue Chrome Logo Hoodie",
         price: 2499,
         category: "Hoodies",
-        description: "Exclusive chrome design with 7Houses logo in blue. Premium limited edition hoodie.",
+        description: "Light blue hoodie featuring a cyan dripping chrome 7Houses logo. Premium limited edition.",
         images: ["/SVN_Hoodie_Chrome7Houses_Blue.png"],
         stock: 15,
       },
       {
-        name: "Chrome 7Houses Red Hoodie",
+        name: "Red Chrome Logo Hoodie",
         price: 2499,
         category: "Hoodies",
-        description: "Exclusive chrome design with 7Houses logo in red. Ultra-premium limited edition.",
+        description: "Red hoodie featuring a silver dripping chrome 7Houses logo. Ultra-premium limited edition.",
         images: ["/SVN_Hoodie_Chrome7Houses_Red.png"],
         stock: 15,
       },
       {
-        name: "Lips Logo Black Hoodie",
+        name: "Black SVN Lips Hoodie",
         price: 2299,
         category: "Hoodies",
-        description: "Bold lips logo design on black hoodie. Eye-catching streetwear piece.",
+        description: "Bold red lips and gold SVN HOUSES teeth logo on a black hoodie. Eye-catching streetwear piece.",
         images: ["/SVN_Hoodie_LipsLogo_Black.png"],
         stock: 20,
       },
       {
-        name: "Pink Script Green Hoodie",
+        name: "Teal Pink Script Hoodie",
         price: 2299,
         category: "Hoodies",
-        description: "Unique pink script design on green hoodie. Exclusive syndicate collab.",
+        description: "Unique pink chrome script logo on a teal hoodie. Exclusive syndicate collab.",
         images: ["/SVN_Hoodie_PinkScript_Green.png"],
         stock: 18,
       },
       {
-        name: "Snake White Hoodie",
+        name: "Cream Snake Logo Hoodie",
         price: 2299,
         category: "Hoodies",
-        description: "Snake motif design on white hoodie. Premium embroidered artwork.",
+        description: "Intricate black snake and red 7HOUSES text on a cream hoodie. Premium artwork.",
         images: ["/SVN_Hoodie_Snake_White.png"],
         stock: 22,
       },
       {
-        name: "Organic 75 Blue T-Shirt",
+        name: "Organic 75 Navy T-Shirt",
         price: 999,
         category: "T-Shirts",
-        description: "Organic 75% cotton blend t-shirt in blue. Perfect casual tee for everyday wear.",
+        description: "Organic 75% cotton blend t-shirt in navy with a cyan liquid logo. Perfect casual tee for everyday wear.",
         images: ["/SVN_Tshirt_Organic75_Blue.png"],
         stock: 50,
       },
       {
-        name: "Organic 75 Green T-Shirt",
+        name: "Organic 75 Olive T-Shirt",
         price: 999,
         category: "T-Shirts",
-        description: "Organic 75% cotton blend t-shirt in green. Sustainable and comfortable.",
+        description: "Organic 75% cotton blend t-shirt in olive with a green liquid logo. Sustainable and comfortable.",
         images: ["/SVN_Tshirt_Organic75_Green.png"],
         stock: 48,
       },
       {
-        name: "Organic 75 Pink Ice T-Shirt",
+        name: "Organic 75 Rose T-Shirt",
         price: 999,
         category: "T-Shirts",
-        description: "Organic 75% cotton blend t-shirt in pink ice. Cool and crisp aesthetic.",
+        description: "Organic 75% cotton blend t-shirt in rose pink with a light blue liquid logo. Cool and crisp aesthetic.",
         images: ["/SVN_Tshirt_Organic75_Pink_Ice.png"],
         stock: 45,
       },
       {
-        name: "Organic 75 Red T-Shirt",
+        name: "Organic 75 Burgundy T-Shirt",
         price: 999,
         category: "T-Shirts",
-        description: "Organic 75% cotton blend t-shirt in red. Bold and vibrant staple piece.",
+        description: "Organic 75% cotton blend t-shirt in burgundy with a red liquid logo. Bold and vibrant staple piece.",
         images: ["/SVN_Tshirt_Organic75_Red.png"],
         stock: 52,
       },
       {
-        name: "Organic 75 White Fusion T-Shirt",
+        name: "Organic 75 Ice Blue T-Shirt",
         price: 999,
         category: "T-Shirts",
-        description: "Organic 75% cotton blend t-shirt in white fusion. Premium quality basics.",
+        description: "Organic 75% cotton blend t-shirt in ice blue with an orange liquid logo. Premium quality basics.",
         images: ["/SVN_Tshirt_Organic75_White_Fusion.png"],
         stock: 55,
-      },
-      {
-        name: "Stripped Shirt",
-        price: 1499,
-        category: "T-Shirts",
-        description: "Classic striped shirt with clean lines. Versatile piece for any occasion.",
-        images: ["/Strippedshirt.png"],
-        stock: 35,
       },
       {
         name: "Black Limited Edition 7",
         price: 3999,
         category: "Archive",
         description: "Ultra-exclusive black limited edition piece from the 7HOUSES archive. Only 7 made.",
-        images: ["/black limited ed 7.png"],
+        images: ["/Black_limited_7h.png"],
         stock: 2,
       },
     ];
@@ -191,16 +175,17 @@ export async function GET(req: Request) {
 export async function POST(req: Request) {
   try {
     const body = await req.json();
-    const { name, price, description, category, stock, image } = body;
+    const { name, price, discountPrice, description, category, stock, image, images } = body;
 
     const product = await prisma.product.create({
       data: {
         name,
         price: Number(price),
+        discountPrice: discountPrice ? Number(discountPrice) : null,
         description,
         category,
         stock: Number(stock),
-        images: [image],
+        images: images || [image],
         isSoldOut: false,
       },
     });
@@ -208,5 +193,57 @@ export async function POST(req: Request) {
     return NextResponse.json(product, { status: 201 });
   } catch {
     return NextResponse.json({ error: "Upload failed" }, { status: 500 });
+  }
+}
+
+export async function PUT(req: Request) {
+  try {
+    const url = new URL(req.url);
+    const id = url.searchParams.get("id");
+
+    if (!id) {
+      return NextResponse.json({ error: "Product ID required" }, { status: 400 });
+    }
+
+    const body = await req.json();
+    const { name, price, discountPrice, description, category, stock, images, isSoldOut } = body;
+
+    const product = await prisma.product.update({
+      where: { id },
+      data: {
+        name,
+        price: price ? Number(price) : undefined,
+        discountPrice: discountPrice ? Number(discountPrice) : null,
+        description,
+        category,
+        stock: stock !== undefined ? Number(stock) : undefined,
+        images: images && images.length > 0 ? images : undefined,
+        isSoldOut: isSoldOut !== undefined ? isSoldOut : undefined,
+      },
+    });
+
+    return NextResponse.json(product);
+  } catch (error) {
+    console.error("Update error:", error);
+    return NextResponse.json({ error: "Failed to update product" }, { status: 500 });
+  }
+}
+
+export async function DELETE(req: Request) {
+  try {
+    const url = new URL(req.url);
+    const id = url.searchParams.get("id");
+
+    if (!id) {
+      return NextResponse.json({ error: "Product ID required" }, { status: 400 });
+    }
+
+    await prisma.product.delete({
+      where: { id },
+    });
+
+    return NextResponse.json({ success: true, message: "Product deleted" });
+  } catch {
+    return NextResponse.json({ error: "Failed to delete product" }, { status: 500 });
   }
 }
