@@ -1,18 +1,22 @@
 "use client";
 
-import { useState, useRef } from "react";
+import { useState, useRef, useEffect } from "react";
 import { motion } from "framer-motion";
 import Image from "next/image";
 
 export default function IntroSequence() {
-    const [introFinished, setIntroFinished] = useState(() => {
-        if (typeof window === 'undefined') return false;
-        return sessionStorage.getItem("introPlayed") === "true";
-    });
+    const [introFinished, setIntroFinished] = useState(false);
     const [isZooming, setIsZooming] = useState(false);
+    const [isMounted, setIsMounted] = useState(false);
     const videoRef = useRef<HTMLVideoElement>(null);
 
-    if (introFinished) return null;
+    useEffect(() => {
+        setIsMounted(true);
+        const introPlayed = sessionStorage.getItem("introPlayed") === "true";
+        setIntroFinished(introPlayed);
+    }, []);
+
+    if (!isMounted || introFinished) return null;
 
     const handleEnter = () => {
         setIsZooming(true);
@@ -49,42 +53,24 @@ export default function IntroSequence() {
                 <div className="absolute inset-0 bg-black/30" />
             </div>
 
-            {/* Center Minecraft-Styled Text Button */}
-            <div className="absolute inset-0 flex items-center justify-center z-10 pointer-events-auto">
+            {/* Clickable overlay to enter */}
+            <div 
+                className="absolute inset-0 z-10 cursor-pointer flex items-center justify-center"
+                onClick={handleEnter}
+            >
                 <motion.div
-                    initial={{ opacity: 0, y: 20 }}
+                    initial={{ opacity: 0, y: -40 }}
                     animate={{ opacity: 1, y: 0 }}
                     transition={{ delay: 0.2, duration: 0.8 }}
-                    className="flex flex-col items-center gap-8"
+                    className="flex flex-col items-center"
                 >
                     <Image 
                         src="/logo.png" 
                         alt="7HOUSES" 
-                        width={180} 
-                        height={180} 
-                        className="w-32 md:w-48 h-auto object-contain drop-shadow-[0_0_30px_rgba(255,255,255,0.2)]"
+                        width={300} 
+                        height={300} 
+                        className="w-48 md:w-80 h-auto object-contain drop-shadow-[0_0_40px_rgba(255,255,255,0.3)]"
                     />
-                    <motion.button
-                        onClick={handleEnter}
-                        disabled={isZooming}
-                        initial={{ opacity: 0, scale: 0.9 }}
-                        animate={{ 
-                            opacity: 1, 
-                            scale: 1 
-                        }}
-                        transition={{ delay: 0.5, duration: 0.6 }}
-                        className={`font-vt323 text-white text-2xl md:text-4xl font-bold tracking-widest uppercase hover:text-gray-200 transition-colors duration-300 cursor-pointer select-none ${
-                            isZooming ? "opacity-0 pointer-events-none" : "opacity-100"
-                        }`}
-                        style={{ 
-                            textShadow: '2px 2px 0 rgba(0,0,0,0.8), 4px 4px 0 rgba(0,0,0,0.6)',
-                            lineHeight: '1.8'
-                        }}
-                    >
-                        Click Anywhere<br />
-                        to Enter<br />
-                        the House
-                    </motion.button>
                 </motion.div>
             </div>
         </motion.div>

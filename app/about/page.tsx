@@ -80,7 +80,7 @@ export default function AboutPage() {
           transition={{ delay: 0.2, duration: 1 }}
           className="text-3xl md:text-5xl font-black uppercase tracking-tighter leading-[1.1]"
         >
-          &quot;7 HOUSE began as an idea to break away from noise. We don&apos;t chase trends. 
+          &quot;7 HOUSES began as an idea to break away from noise. We don&apos;t chase trends. 
           We build pieces that last, carry identity, and speak without shouting. 
           What started small is now a movement.&quot;
         </motion.p>
@@ -200,7 +200,7 @@ export default function AboutPage() {
              transition={{ delay: 0.1 }}
              className="text-4xl md:text-5xl font-black uppercase tracking-tighter leading-none mb-8"
            >
-              7 HOUSE is built for those who move differently. We exist between street and precision.
+              7 HOUSES is built for those who move differently. We exist between street and precision.
            </motion.p>
            <motion.p 
              initial={{ x: 50, opacity: 0 }}

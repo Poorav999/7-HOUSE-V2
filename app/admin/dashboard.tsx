@@ -80,7 +80,7 @@ export default function AdminDashboard() {
         setView("list");
         fetchProducts();
       }
-    } catch (error) {
+    } catch {
       alert("❌ Failed to add product");
     }
   };
@@ -111,7 +111,7 @@ export default function AdminDashboard() {
         setEditData(null);
         fetchProducts();
       }
-    } catch (error) {
+    } catch {
       alert("❌ Failed to update product");
     }
   };
@@ -128,7 +128,7 @@ export default function AdminDashboard() {
         alert("✅ Product deleted!");
         fetchProducts();
       }
-    } catch (error) {
+    } catch {
       alert("❌ Failed to delete product");
     }
   };

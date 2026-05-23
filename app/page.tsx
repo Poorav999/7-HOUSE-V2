@@ -204,7 +204,7 @@ export default function HomePage() {
           >
             <h2 className="flex items-end gap-3 text-white">
               <span className="font-serif italic lowercase font-normal text-4xl md:text-6xl tracking-tight">why</span>
-              <span className="font-black uppercase text-red-600 text-4xl md:text-6xl tracking-tighter">7 HOUSE?</span>
+              <span className="font-black uppercase text-red-600 text-4xl md:text-6xl tracking-tighter">7 HOUSES?</span>
             </h2>
           </motion.div>
 
@@ -236,7 +236,7 @@ export default function HomePage() {
               {
                 title: "CUSTOMER SUPPORT",
                 desc: "GET THE HELP YOU NEED, FAST. OUR DEDICATED TEAM IS HERE FOR YOU.",
-                sub: "HELLO@7HOUSE.COM",
+                sub: "HELLO@7HOUSES.COM",
                 marginTop: "mt-12 md:mt-96",
                 delay: 0.45
               }

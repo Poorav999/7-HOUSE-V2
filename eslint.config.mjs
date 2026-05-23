@@ -14,13 +14,13 @@ const eslintConfig = defineConfig([
       "@typescript-eslint/ban-ts-comment": "off",
     }
   },
-  // Override default ignores of eslint-config-next.
   globalIgnores([
     // Default ignores of eslint-config-next:
     ".next/**",
     "out/**",
     "build/**",
     "next-env.d.ts",
+    ".claude/**",
   ]),
 ]);
 

@@ -12,7 +12,7 @@ export default function Footer() {
             <div className="flex flex-col gap-2 shrink-0">
               <div className="flex items-center gap-3 mb-1">
                 <Image src="/logo.png" alt="7H Logo" width={40} height={40} className="object-contain brightness-110" />
-                <h3 className="text-xl font-black uppercase tracking-tighter">7 HOUSE</h3>
+                <h3 className="text-xl font-black uppercase tracking-tighter">7 HOUSES</h3>
               </div>
               <p className="text-sm italic font-serif">clothing store</p>
             </div>
@@ -26,7 +26,7 @@ export default function Footer() {
               </div>
               <div className="flex flex-col gap-3 mt-2 text-white transition-colors">
                 <a href="mailto:hello@7house.com" className="flex items-center gap-2 hover:text-red-500 w-fit">
-                  HELLO@7HOUSE.COM <span className="text-lg leading-none mt-[-2px]">↗</span>
+                  HELLO@7HOUSES.COM <span className="text-lg leading-none mt-[-2px]">↗</span>
                 </a>
                 <a href="tel:+15550102025" className="flex items-center gap-2 hover:text-red-500 w-fit">
                   +91 (999) 999-1626 <span className="text-lg leading-none mt-[-2px]">↗</span>
@@ -92,7 +92,7 @@ export default function Footer() {
           </div>
 
           <p className="text-[10px] md:text-xs font-bold uppercase tracking-[0.2em] text-white/60">
-            © 2026 7 HOUSE CLOTHING STORE
+            © 2026 7 HOUSES CLOTHING STORE
           </p>
         </div>
       </div>

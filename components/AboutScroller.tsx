@@ -43,7 +43,7 @@ export default function AboutScroller() {
         </p>
         
         <h2 className="mb-8 text-5xl md:text-7xl font-black uppercase tracking-tighter text-white leading-[0.9]">
-          7 HOUSE is more than clothing, <br /> it&apos;s a statement.
+          7 HOUSES is more than clothing, <br /> it&apos;s a statement.
         </h2>
 
         <p className="mb-12 text-lg md:text-xl font-medium tracking-wide text-white/60 leading-relaxed max-w-2xl mx-auto">
