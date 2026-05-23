@@ -114,7 +114,7 @@ export default function AboutPage() {
              whileHover={{ scale: 1.05 }}
              className="col-span-4 relative overflow-hidden group"
           >
-            <Image src="/Blackoversized.png" alt="Black Oversized" fill className="object-contain bg-[#111] p-10 transition-transform duration-700 group-hover:scale-110" />
+            <Image src="/black_hoodie.png" alt="Black Hoodie" fill className="object-contain bg-[#111] p-10 transition-transform duration-700 group-hover:scale-110" />
           </motion.div>
 
           {/* Small Bottom Right */}
@@ -125,7 +125,7 @@ export default function AboutPage() {
             whileHover={{ scale: 1.05 }}
             className="col-span-4 relative overflow-hidden group"
           >
-            <Image src="/Redhoodie.png" alt="Red Hoodie" fill className="object-contain bg-[#0a0a0a] p-10 transition-transform duration-700 group-hover:scale-110" />
+            <Image src="/7H_red_tshirt.png" alt="7H Red Tee" fill className="object-contain bg-[#0a0a0a] p-10 transition-transform duration-700 group-hover:scale-110" />
           </motion.div>
 
           {/* Wide Bottom */}
@@ -153,7 +153,7 @@ export default function AboutPage() {
              viewport={{ once: true }}
              className="relative aspect-square overflow-hidden"
            >
-              <Image src="/Greenhoodie.png" alt="Green" fill className="object-contain p-8 bg-[#111]" />
+              <Image src="/7H_green_tshirt.png" alt="Green" fill className="object-contain p-8 bg-[#111]" />
            </motion.div>
            <motion.div 
              initial={{ opacity: 0 }}
@@ -162,7 +162,7 @@ export default function AboutPage() {
              transition={{ delay: 0.1 }}
              className="relative aspect-square overflow-hidden mt-12"
            >
-              <Image src="/Greyhoodie.png" alt="Grey" fill className="object-contain p-8 bg-[#0a0a0a]" />
+              <Image src="/blueGradint_hoodie.png" alt="Blue Gradient" fill className="object-contain p-8 bg-[#0a0a0a]" />
            </motion.div>
            <motion.div 
              initial={{ opacity: 0 }}
@@ -171,7 +171,7 @@ export default function AboutPage() {
              transition={{ delay: 0.2 }}
              className="relative aspect-square overflow-hidden -mt-6"
            >
-              <Image src="/Purplehoodie.png" alt="Purple" fill className="object-contain p-8 bg-[#0a0a0a]" />
+              <Image src="/pink_hoodie.png" alt="Pink" fill className="object-contain p-8 bg-[#0a0a0a]" />
            </motion.div>
            <motion.div 
              initial={{ opacity: 0 }}
@@ -180,7 +180,7 @@ export default function AboutPage() {
              transition={{ delay: 0.3 }}
              className="relative aspect-square overflow-hidden mt-6"
            >
-              <Image src="/Whitehoodie.png" alt="White" fill className="object-contain p-8 bg-[#111]" />
+              <Image src="/white_hoodie.png" alt="White" fill className="object-contain p-8 bg-[#111]" />
            </motion.div>
         </div>
 
