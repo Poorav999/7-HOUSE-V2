@@ -140,7 +140,7 @@ export default function HomePage() {
       </section>
 
       {/* ═══════════ Drop Countdown ═══════════ */}
-      <DropCountdown targetISO="2026-06-07T19:00:00+05:30" dropName="VAULT 07" />
+      <DropCountdown targetISO="2026-05-31T19:00:00+05:30" dropName="VAULT 08" />
 
       {/* ═══════════ About Story Section (Parallax) ═══════════ */}
       <AboutScroller />
