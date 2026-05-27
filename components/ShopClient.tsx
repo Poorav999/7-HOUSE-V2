@@ -71,11 +71,11 @@ function ProductCard({ product }: { product: Product }) {
       layout
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
-      className="group relative flex flex-col bg-black border border-white/10 hover:border-red-600/50 transition-colors duration-300 overflow-hidden"
+      className="group relative flex flex-col bg-white/[0.02] backdrop-blur-sm border border-white/8 hover:border-red-600/40 hover:bg-white/[0.04] transition-all duration-300 overflow-hidden shadow-[inset_0_1px_0_rgba(255,255,255,0.05)]"
     >
       <Link href={`/product/${product.id}`} className="flex flex-col h-full">
         {/* Image Container */}
-        <div className="relative aspect-[3/4] bg-[#0c0c0c] overflow-hidden">
+        <div className="relative aspect-[3/4] bg-black/60 backdrop-blur-sm overflow-hidden">
           {/* Wishlist heart */}
           <button
             onClick={handleWishlist}
@@ -149,7 +149,7 @@ function ProductCard({ product }: { product: Product }) {
         </div>
 
         {/* Info */}
-        <div className="flex flex-col p-4 gap-3 bg-black group-hover:bg-zinc-950 transition-colors">
+        <div className="flex flex-col p-4 gap-3 bg-black/80 backdrop-blur-sm group-hover:bg-white/[0.04] transition-colors">
           {/* Category tag */}
           <span className="text-[9px] font-black uppercase tracking-[0.3em] text-white/30">
             {product.category}

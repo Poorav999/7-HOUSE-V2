@@ -31,7 +31,7 @@ export default function Navbar() {
       <SearchModal isOpen={isSearchOpen} onClose={() => setIsSearchOpen(false)} />
 
       <div className="fixed top-8 left-1/2 -translate-x-1/2 z-50 w-full max-w-[95%] md:max-w-[920px]">
-        <nav className="flex items-center justify-between bg-[#111] px-10 py-3.5 shadow-[0_30px_70px_rgba(0,0,0,0.7)] border border-white/5 rounded-none">
+        <nav className="flex items-center justify-between bg-black/40 backdrop-blur-2xl px-10 py-3.5 shadow-[0_8px_32px_rgba(0,0,0,0.6),inset_0_1px_0_rgba(255,255,255,0.06)] border border-white/8 rounded-none">
           {/* Logo Section */}
           <Link href="/" className="flex items-center group relative">
             <Image
@@ -60,7 +60,7 @@ export default function Navbar() {
               </Link>
 
               <div className="pointer-events-none absolute left-[-20px] top-full pt-10 opacity-0 transition-all duration-300 group-hover:pointer-events-auto group-hover:opacity-100">
-                <div className="w-[520px] bg-[#0a0a0a] p-12 border border-white/10 shadow-[0_60px_120px_rgba(0,0,0,0.95)] rounded-none">
+                <div className="w-[520px] bg-black/70 backdrop-blur-2xl p-12 border border-white/10 shadow-[0_32px_80px_rgba(0,0,0,0.9),inset_0_1px_0_rgba(255,255,255,0.06)] rounded-none">
                   <Link
                     href="/shop"
                     className="mb-10 block border-[2px] border-white/80 py-4 text-center font-sans text-sm font-black uppercase tracking-[0.5em] text-white transition-all hover:bg-white hover:text-black"
