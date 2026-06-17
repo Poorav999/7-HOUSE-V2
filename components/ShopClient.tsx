@@ -195,13 +195,15 @@ export default function ShopClient({ products, categories }: ShopClientProps) {
   useEffect(() => {
     const cat = searchParams.get("category");
     const status = searchParams.get("status");
-
-    if (cat) {
-      const match = categories.find((c) => c.toLowerCase() === cat.toLowerCase());
-      if (match) setSelectedCategory(match);
-    }
-    if (status === "sale") setOnSaleOnly(true);
-    if (status === "new") setNewArrivalsOnly(true);
+    const t = setTimeout(() => {
+      if (cat) {
+        const match = categories.find((c) => c.toLowerCase() === cat.toLowerCase());
+        if (match) setSelectedCategory(match);
+      }
+      if (status === "sale") setOnSaleOnly(true);
+      if (status === "new") setNewArrivalsOnly(true);
+    }, 0);
+    return () => clearTimeout(t);
   }, [searchParams, categories]);
 
   const filteredProducts = useMemo(() => {

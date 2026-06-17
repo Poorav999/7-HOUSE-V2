@@ -127,9 +127,46 @@ export default function Footer() {
         </div>
 
         {/* Social Links */}
-        <div className="flex flex-wrap justify-between items-center mb-16 text-xs font-bold uppercase tracking-[0.2em] px-4 md:px-12 text-white/80">
-          <span className="text-white/30 italic text-[10px]">Social links coming soon</span>
-          <button className="flex items-center gap-2 hover:text-white transition-colors">
+        <div className="flex flex-wrap justify-between items-center gap-6 mb-16 text-xs font-bold uppercase tracking-[0.2em] px-4 md:px-12 text-white/80">
+          <div className="flex items-center gap-5">
+            <a
+              href="https://instagram.com"
+              target="_blank"
+              rel="noopener noreferrer"
+              aria-label="Instagram"
+              className="text-white/60 hover:text-red-500 transition-colors"
+            >
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                <rect width="20" height="20" x="2" y="2" rx="5" /><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z" /><line x1="17.5" y1="6.5" x2="17.51" y2="6.5" />
+              </svg>
+            </a>
+            <a
+              href="https://x.com"
+              target="_blank"
+              rel="noopener noreferrer"
+              aria-label="X"
+              className="text-white/60 hover:text-red-500 transition-colors"
+            >
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor">
+                <path d="M18.9 1.2h3.7l-8 9.1 9.4 12.5h-7.4l-5.8-7.6-6.6 7.6H.5l8.6-9.8L0 1.2h7.6l5.2 6.9zM17.6 20.6h2L6.5 3.3H4.3z" />
+              </svg>
+            </a>
+            <a
+              href="https://tiktok.com"
+              target="_blank"
+              rel="noopener noreferrer"
+              aria-label="TikTok"
+              className="text-white/60 hover:text-red-500 transition-colors"
+            >
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor">
+                <path d="M16.6 5.8a4.3 4.3 0 0 1-1-2.8h-3.3v13.4a2.5 2.5 0 1 1-2.5-2.5c.26 0 .5.04.74.11V8.6a5.86 5.86 0 0 0-.74-.05 5.88 5.88 0 1 0 5.88 5.88V8.1a7.5 7.5 0 0 0 4.36 1.39V6.16a4.3 4.3 0 0 1-3.45-.36z" />
+              </svg>
+            </a>
+          </div>
+          <button
+            onClick={() => window.dispatchEvent(new Event("7h:open-currency"))}
+            className="flex items-center gap-2 hover:text-white transition-colors"
+          >
             INR <span className="text-[16px]">🇮🇳</span>
           </button>
         </div>

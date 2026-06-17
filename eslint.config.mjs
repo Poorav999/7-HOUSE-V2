@@ -6,13 +6,7 @@ const eslintConfig = defineConfig([
   ...nextVitals,
   ...nextTs,
   {
-    rules: {
-      "@typescript-eslint/no-explicit-any": "off",
-      "react-hooks/rules-of-hooks": "error",
-      "react-hooks/set-state-in-effect": "off",
-      "react/jsx-no-comment-textnodes": "warn",
-      "@typescript-eslint/ban-ts-comment": "off",
-    }
+    rules: {}
   },
   globalIgnores([
     // Default ignores of eslint-config-next:

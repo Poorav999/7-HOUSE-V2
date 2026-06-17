@@ -3,7 +3,7 @@
 import { useState, useRef } from "react";
 import Image from "next/image";
 import Link from "next/link";
-import { motion, AnimatePresence } from "framer-motion";
+import { motion } from "framer-motion";
 import { useCart } from "@/components/CartContext";
 import { useWishlist } from "@/components/WishlistContext";
 import type { Product } from "@/components/CartContext";
@@ -41,6 +41,13 @@ export default function ProductPageClient({ product, imageUrl }: Props) {
   const imageRef = useRef<HTMLDivElement>(null);
 
   const wishlisted = isInWishlist(product.id);
+
+  // Build a normalized image gallery from the product's images (fallback to the
+  // server-resolved primary image). Leading-slash normalization mirrors the page route.
+  const gallery = (product.images && product.images.length > 0 ? product.images : [imageUrl]).map(
+    (src) => (src.startsWith("/") || src.startsWith("http") ? src : `/${src}`)
+  );
+  const [activeImg, setActiveImg] = useState(gallery[0] ?? imageUrl);
 
   const handleMouseMove = (e: React.MouseEvent<HTMLDivElement>) => {
     const rect = e.currentTarget.getBoundingClientRect();
@@ -132,7 +139,7 @@ export default function ProductPageClient({ product, imageUrl }: Props) {
                 <div className="absolute bottom-4 right-4 w-8 h-8 border-b-2 border-r-2 border-red-600/50 z-10" />
 
                 <Image
-                  src={imageUrl}
+                  src={activeImg}
                   alt={product.name}
                   fill
                   unoptimized
@@ -145,6 +152,37 @@ export default function ProductPageClient({ product, imageUrl }: Props) {
                 <div className="absolute inset-0 bg-gradient-to-br from-white/[0.04] via-transparent to-transparent pointer-events-none" />
               </div>
             </div>
+
+            {/* Thumbnail gallery */}
+            {gallery.length > 1 && (
+              <div className="mt-4 flex flex-wrap gap-3">
+                {gallery.map((src, i) => {
+                  const active = src === activeImg;
+                  return (
+                    <button
+                      key={src + i}
+                      type="button"
+                      onClick={() => setActiveImg(src)}
+                      aria-label={`View image ${i + 1}`}
+                      className={`relative h-20 w-20 shrink-0 overflow-hidden rounded-lg border bg-white/[0.03] backdrop-blur-sm transition-all duration-300 ${
+                        active
+                          ? "border-red-600 shadow-[0_0_20px_rgba(220,38,38,0.4)]"
+                          : "border-white/10 hover:border-white/40"
+                      }`}
+                    >
+                      <Image
+                        src={src}
+                        alt={`${product.name} view ${i + 1}`}
+                        fill
+                        unoptimized
+                        className="object-cover"
+                        sizes="80px"
+                      />
+                    </button>
+                  );
+                })}
+              </div>
+            )}
           </motion.div>
 
           {/* ─── RIGHT: Product info ─── */}
@@ -250,7 +288,7 @@ export default function ProductPageClient({ product, imageUrl }: Props) {
                 onClick={handleAddToCart}
                 disabled={isAdding || product.isSoldOut}
                 whileTap={{ scale: 0.97 }}
-                className={`relative w-full py-4 font-black uppercase tracking-[0.3em] text-sm rounded-xl overflow-hidden transition-all duration-300 disabled:opacity-50 ${
+                className={`btn-sheen relative w-full py-4 font-black uppercase tracking-[0.3em] text-sm rounded-xl overflow-hidden transition-all duration-300 disabled:opacity-50 ${
                   addedSuccess
                     ? "bg-green-600 text-white"
                     : "bg-red-600 hover:bg-red-500 text-white shadow-[0_0_30px_rgba(220,38,38,0.3)] hover:shadow-[0_0_50px_rgba(220,38,38,0.5)]"

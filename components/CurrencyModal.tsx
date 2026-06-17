@@ -1,33 +1,56 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import Image from "next/image";
 
-const currencies = [
-  { name: "United Arab Emirates", code: "AED" },
-  { name: "Australia", code: "AUD" },
+interface Currency {
+  name: string;
+  code: string;
+}
+
+const currencies: Currency[] = [
+  { name: "India", code: "INR" },
+  { name: "United States", code: "USD" },
+  { name: "United Kingdom", code: "GBP" },
   { name: "Germany", code: "EUR" },
   { name: "France", code: "EUR" },
-  { name: "United Kingdom", code: "GBP" },
-  { name: "India", code: "INR" },
+  { name: "United Arab Emirates", code: "AED" },
+  { name: "Australia", code: "AUD" },
   { name: "Japan", code: "JPY" },
   { name: "Singapore", code: "SGD" },
-  { name: "United States", code: "USD" },
 ];
+
+const DEFAULT_CURRENCY = currencies[0]; // India / INR — store prices are in ₹
 
 export default function CurrencyModal() {
   const [isOpen, setIsOpen] = useState(() => {
-    if (typeof window === 'undefined') return false;
-    const hasSelected = localStorage.getItem("7h_currency_selected");
-    return !hasSelected;
+    if (typeof window === "undefined") return false;
+    return !localStorage.getItem("7h_currency_selected");
   });
-  const [selectedCurrency, setSelectedCurrency] = useState("USD");
-  const [hoveredCurrency, setHoveredCurrency] = useState("AED");
+  // Track the full selection by name so the two EUR rows stay distinct.
+  // Restore a previously saved currency on first render.
+  const [selected, setSelected] = useState<Currency>(() => {
+    if (typeof window === "undefined") return DEFAULT_CURRENCY;
+    const savedName = localStorage.getItem("7h_currency_name");
+    return currencies.find((c) => c.name === savedName) ?? DEFAULT_CURRENCY;
+  });
+  const [hoveredName, setHoveredName] = useState<string>(() => selected.name);
 
-  const handleSelect = (code: string) => {
-    setSelectedCurrency(code);
+  // Allow re-opening the picker from anywhere (e.g. the footer currency button).
+  useEffect(() => {
+    const open = () => setIsOpen(true);
+    window.addEventListener("7h:open-currency", open);
+    return () => window.removeEventListener("7h:open-currency", open);
+  }, []);
+
+  const handleSelect = (currency: Currency) => {
+    setSelected(currency);
+    setHoveredName(currency.name);
     localStorage.setItem("7h_currency_selected", "true");
-    setIsOpen(false); 
+    localStorage.setItem("7h_currency_name", currency.name);
+    localStorage.setItem("7h_currency_code", currency.code);
+    window.dispatchEvent(new CustomEvent("7h:currency-changed", { detail: currency }));
+    setIsOpen(false);
   };
 
   if (!isOpen) return null;
@@ -66,10 +89,10 @@ export default function CurrencyModal() {
         {/* Selected Currency Row (Simulating Dropdown Header) */}
         <div className="bg-[#fcfaeb] text-[#e02020] flex justify-between items-center px-4 py-3 cursor-pointer border-b border-black/5">
            <span className="font-black text-[15px] uppercase tracking-wide">
-             {currencies.find(c => c.code === selectedCurrency)?.name || "United States"}
+             {selected.name}
            </span>
            <span className="flex items-center gap-1 font-black text-[15px]">
-             ({selectedCurrency}) 
+             ({selected.code})
              <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round" className="mt-0.5">
                <path d="m6 9 6 6 6-6"/>
              </svg>
@@ -79,17 +102,22 @@ export default function CurrencyModal() {
         {/* Dropdown List */}
         <div className="flex flex-col bg-white overflow-hidden py-1">
            {currencies.map(currency => (
-             <button 
+             <button
                key={currency.name}
-               onClick={() => handleSelect(currency.code)}
-               onMouseEnter={() => setHoveredCurrency(currency.code)}
-               className={`w-full text-left px-3 py-1.5 text-[14px] transition-colors font-medium border-l-[3px]
-               ${hoveredCurrency === currency.code 
-                  ? "bg-[#2563eb] text-white border-[#2563eb]" 
+               onClick={() => handleSelect(currency)}
+               onMouseEnter={() => setHoveredName(currency.name)}
+               className={`flex w-full items-center justify-between px-3 py-1.5 text-[14px] transition-colors font-medium border-l-[3px]
+               ${hoveredName === currency.name
+                  ? "bg-[#2563eb] text-white border-[#2563eb]"
                   : "bg-white text-black border-transparent hover:border-black/10"
                }`}
              >
-               {currency.name} ({currency.code})
+               <span>{currency.name} ({currency.code})</span>
+               {selected.name === currency.name && (
+                 <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round">
+                   <polyline points="20 6 9 17 4 12" />
+                 </svg>
+               )}
              </button>
            ))}
         </div>

@@ -27,7 +27,8 @@ export function WishlistProvider({ children }: { children: ReactNode }) {
   const [isLoaded, setIsLoaded] = useState(false);
 
   useEffect(() => {
-    setIsLoaded(true);
+    const t = setTimeout(() => setIsLoaded(true), 0);
+    return () => clearTimeout(t);
   }, []);
 
   const addToWishlist = (product: Product) => {

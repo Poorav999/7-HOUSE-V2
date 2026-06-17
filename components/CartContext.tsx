@@ -38,7 +38,8 @@ export function CartProvider({ children }: { children: ReactNode }) {
   const [isLoaded, setIsLoaded] = useState(false);
 
   useEffect(() => {
-    setIsLoaded(true);
+    const t = setTimeout(() => setIsLoaded(true), 0);
+    return () => clearTimeout(t);
   }, []);
 
   const setCartItems = (items: Product[]) => {
@@ -54,6 +55,14 @@ export function CartProvider({ children }: { children: ReactNode }) {
       localStorage.setItem("7h_cart", JSON.stringify(updated));
       return updated;
     });
+    // Fire a global "unlock" event so the arcade toast can react anywhere.
+    if (typeof window !== "undefined") {
+      window.dispatchEvent(
+        new CustomEvent("7h:unlock", {
+          detail: { name: product.name, image: product.images?.[0] ?? null },
+        })
+      );
+    }
   };
 
   const removeFromCart = (id: string) => {

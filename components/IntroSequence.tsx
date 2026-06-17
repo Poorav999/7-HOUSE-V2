@@ -11,9 +11,12 @@ export default function IntroSequence() {
     const videoRef = useRef<HTMLVideoElement>(null);
 
     useEffect(() => {
-        setIsMounted(true);
-        const introPlayed = sessionStorage.getItem("introPlayed") === "true";
-        setIntroFinished(introPlayed);
+        const t = setTimeout(() => {
+            setIsMounted(true);
+            const introPlayed = sessionStorage.getItem("introPlayed") === "true";
+            setIntroFinished(introPlayed);
+        }, 0);
+        return () => clearTimeout(t);
     }, []);
 
     if (!isMounted || introFinished) return null;

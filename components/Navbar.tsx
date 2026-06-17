@@ -2,36 +2,75 @@
 
 import Image from "next/image";
 import Link from "next/link";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { motion } from "framer-motion";
+import { useSession, signOut } from "next-auth/react";
 import { useCart } from "@/components/CartContext";
 import { useWishlist } from "@/components/WishlistContext";
 import SearchModal from "@/components/SearchModal";
 
-const categories = [
-  "T-Shirts",
-  "Hoodies",
-  "Sweatshirts",
-  "Pants",
-  "Jacket",
-  "Accessories",
-  "Caps",
-  "Archive",
-];
+// Preferred display order; any other live categories are appended after these.
+const CATEGORY_ORDER = ["T-Shirts", "Hoodies", "Pants", "Accessories"];
+
+interface NavProduct {
+  category?: string;
+  stock?: number;
+  isSoldOut?: boolean;
+}
 
 export default function Navbar() {
   const { cartItems, isLoaded } = useCart();
   const { wishlistItems } = useWishlist();
+  const { data: session } = useSession();
   const cartCount = isLoaded ? cartItems.length : 0;
   const wishlistCount = isLoaded ? wishlistItems.length : 0;
   const [isSearchOpen, setIsSearchOpen] = useState(false);
+  const [categories, setCategories] = useState<string[]>([]);
+
+  // Only surface categories that actually have in-stock products right now.
+  useEffect(() => {
+    let active = true;
+    fetch("/api/products")
+      .then((r) => r.json())
+      .then((data: NavProduct[]) => {
+        if (!active || !Array.isArray(data)) return;
+        const present = Array.from(
+          new Set(
+            data
+              .filter((p) => !p.isSoldOut && (p.stock === undefined || p.stock > 0))
+              .map((p) => p.category)
+              .filter((c): c is string => Boolean(c))
+          )
+        );
+        present.sort((a, b) => {
+          const ia = CATEGORY_ORDER.indexOf(a);
+          const ib = CATEGORY_ORDER.indexOf(b);
+          return (ia === -1 ? 99 : ia) - (ib === -1 ? 99 : ib);
+        });
+        setCategories(present);
+      })
+      .catch(() => {});
+    return () => {
+      active = false;
+    };
+  }, []);
 
   return (
     <>
       <SearchModal isOpen={isSearchOpen} onClose={() => setIsSearchOpen(false)} />
 
       <div className="fixed top-8 left-1/2 -translate-x-1/2 z-50 w-full max-w-[95%] md:max-w-[920px]">
-        <nav className="flex items-center justify-between bg-black/40 backdrop-blur-2xl px-10 py-3.5 shadow-[0_8px_32px_rgba(0,0,0,0.6),inset_0_1px_0_rgba(255,255,255,0.06)] border border-white/8 rounded-none">
+        <nav className="relative flex items-center justify-between bg-white/[0.03] backdrop-blur-3xl px-10 py-3.5 shadow-[0_8px_40px_rgba(0,0,0,0.45),inset_0_1px_0_rgba(255,255,255,0.12),inset_0_-1px_0_rgba(0,0,0,0.3)] border border-white/15 rounded-none">
+          {/* subtle red HUD accent line + scanline texture */}
+          <div className="pointer-events-none absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-red-600/60 to-transparent" />
+          <div
+            aria-hidden
+            className="pointer-events-none absolute inset-0 opacity-[0.05]"
+            style={{
+              backgroundImage:
+                "repeating-linear-gradient(0deg, rgba(255,255,255,0.6) 0px, rgba(255,255,255,0.6) 1px, transparent 1px, transparent 3px)",
+            }}
+          />
           {/* Logo Section */}
           <Link href="/" className="flex items-center group relative">
             <Image
@@ -123,6 +162,25 @@ export default function Navbar() {
                 <circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/>
               </svg>
             </motion.button>
+
+            {session?.user ? (
+              <button
+                onClick={() => signOut({ callbackUrl: "/" })}
+                className="text-white/70 hover:text-red-500 transition-all"
+                aria-label="Sign out"
+                title={`Signed in as ${session.user.email ?? session.user.name ?? "you"} — click to sign out`}
+              >
+                <svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+                  <path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4" /><polyline points="16 17 21 12 16 7" /><line x1="21" y1="12" x2="9" y2="12" />
+                </svg>
+              </button>
+            ) : (
+              <Link href="/login" className="text-white/70 hover:text-red-500 transition-all" aria-label="Sign in" title="Sign in">
+                <svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+                  <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2" /><circle cx="12" cy="7" r="4" />
+                </svg>
+              </Link>
+            )}
 
             <Link href="/wishlist" className="relative text-white/70 hover:text-red-500 transition-all" aria-label="Wishlist">
               <svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">

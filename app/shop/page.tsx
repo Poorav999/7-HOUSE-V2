@@ -8,10 +8,10 @@ interface ProductData {
   name: string;
   price: number;
   description?: string | null;
-  category?: string;
+  category: string;
   stock?: number;
   images: string[];
-  isSoldOut?: boolean;
+  isSoldOut: boolean;
   createdAt: string;
   discountPrice?: number | null;
 }
@@ -27,10 +27,9 @@ export default async function ShopPage() {
       },
     });
     
-    // @ts-ignore - rawProducts from prisma might have slight differences in property optionality
-    products = rawProducts.map((p: any) => ({
+    products = rawProducts.map((p) => ({
       ...p,
-      createdAt: p.createdAt instanceof Date ? p.createdAt.toISOString() : p.createdAt,
+      createdAt: p.createdAt instanceof Date ? p.createdAt.toISOString() : String(p.createdAt),
       price: Number(p.price),
       discountPrice: p.discountPrice ? Number(p.discountPrice) : null,
       isSoldOut: Boolean(p.isSoldOut),
@@ -45,7 +44,7 @@ export default async function ShopPage() {
 
   return (
     <ShopClient 
-      products={products as any} 
+      products={products} 
       categories={categories} 
     />
   );

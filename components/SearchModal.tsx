@@ -11,6 +11,7 @@ interface Product {
   price: number;
   images: string[];
   category?: string;
+  description?: string | null;
 }
 
 interface SearchModalProps {
@@ -26,20 +27,33 @@ export default function SearchModal({ isOpen, onClose }: SearchModalProps) {
 
   useEffect(() => {
     if (!isOpen) return;
-    setIsLoading(true);
-    fetch("/api/products")
-      .then((r) => r.json())
-      .then((data) => setProducts(Array.isArray(data) ? data : []))
-      .catch(() => setProducts([]))
-      .finally(() => setIsLoading(false));
+    let active = true;
+    const load = async () => {
+      setIsLoading(true);
+      try {
+        const r = await fetch("/api/products");
+        const data = await r.json();
+        if (active) setProducts(Array.isArray(data) ? data : []);
+      } catch {
+        if (active) setProducts([]);
+      } finally {
+        if (active) setIsLoading(false);
+      }
+    };
+    load();
+    return () => {
+      active = false;
+    };
   }, [isOpen]);
 
   useEffect(() => {
+    let t: ReturnType<typeof setTimeout>;
     if (isOpen) {
-      setTimeout(() => inputRef.current?.focus(), 100);
+      t = setTimeout(() => inputRef.current?.focus(), 100);
     } else {
-      setQuery("");
+      t = setTimeout(() => setQuery(""), 0);
     }
+    return () => clearTimeout(t);
   }, [isOpen]);
 
   useEffect(() => {
@@ -50,13 +64,16 @@ export default function SearchModal({ isOpen, onClose }: SearchModalProps) {
     return () => window.removeEventListener("keydown", handler);
   }, [onClose]);
 
-  const results = query.trim().length < 1
-    ? products.slice(0, 8)
-    : products.filter(
-        (p) =>
-          p.name.toLowerCase().includes(query.toLowerCase()) ||
-          (p.category ?? "").toLowerCase().includes(query.toLowerCase())
-      );
+  const trimmed = query.trim().toLowerCase();
+  const results =
+    trimmed.length < 1
+      ? products.slice(0, 8)
+      : products.filter((p) => {
+          // Match every search word against the product's combined text, so
+          // queries like "blue watch" or "dragon jeans" work regardless of order.
+          const haystack = `${p.name} ${p.category ?? ""} ${p.description ?? ""}`.toLowerCase();
+          return trimmed.split(/\s+/).every((term) => haystack.includes(term));
+        });
 
   const getImageSrc = (img?: string) => {
     if (!img) return "/shadyblue.jpg";

@@ -56,7 +56,11 @@ function MarqueeItem({ product }: { product: Product }) {
       : `/${product.images?.[0]}`;
 
   return (
-    <motion.div className="relative w-[320px] shrink-0 group">
+    <motion.div
+      className="relative w-[320px] shrink-0 group"
+      whileTap={{ scale: 0.97 }}
+      transition={{ type: "spring", stiffness: 400, damping: 25 }}
+    >
       <Link href={`/product/${product.id}`} className="block">
         <div className="relative flex flex-col gap-5 rounded-2xl bg-[#e5e7eb] p-5 shadow-2xl transition-all duration-500 group-hover:shadow-[0_40px_80px_rgba(255,255,255,0.08)] group-hover:-translate-y-2">
           {/* Status Badge */}
@@ -68,24 +72,23 @@ function MarqueeItem({ product }: { product: Product }) {
             NEW_ITEM
           </div>
 
-          {/* Product Container */}
-          <div className="relative flex h-[400px] w-full items-center justify-center overflow-hidden rounded-xl bg-[#0a0a0a] shadow-[inset_0_0_60px_rgba(0,0,0,1)]">
-            <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-48 h-48 bg-white/5 blur-[60px] group-hover:bg-white/10 transition-colors duration-500" />
-            <div className="absolute bottom-12 left-1/2 -translate-x-1/2 w-32 h-6 bg-black/60 blur-xl opacity-80" />
+          {/* Product Container — fixed 3:4 aspect so every card is identical */}
+          <div className="relative aspect-[3/4] w-full overflow-hidden rounded-xl bg-[#0a0a0a] shadow-[inset_0_0_60px_rgba(0,0,0,1)]">
             <div className="pointer-events-none absolute inset-0 z-10 bg-[linear-gradient(rgba(255,255,255,0.03)_1px,transparent_1px)] bg-[length:100%_4px] opacity-20" />
 
             {imgSrc ? (
-              <div className="relative z-10 h-full w-full p-6 transition-transform duration-700 group-hover:scale-110">
-                <Image
-                  src={imgSrc}
-                  alt={product.name}
-                  fill
-                  className="object-contain drop-shadow-[0_15px_30px_rgba(0,0,0,0.6)]"
-                  style={{ imageRendering: "auto", filter: "brightness(1.05) contrast(1.1)" }}
-                />
-              </div>
+              <Image
+                src={imgSrc}
+                alt={product.name}
+                fill
+                sizes="320px"
+                className="object-cover transition-transform duration-700 group-hover:scale-105"
+                style={{ filter: "brightness(1.03) contrast(1.05)" }}
+              />
             ) : (
-              <div className="font-mono text-xs tracking-widest text-zinc-800">DATA_LOST</div>
+              <div className="flex h-full w-full items-center justify-center font-mono text-xs tracking-widest text-zinc-800">
+                DATA_LOST
+              </div>
             )}
           </div>
 

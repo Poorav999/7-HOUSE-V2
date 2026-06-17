@@ -61,7 +61,8 @@ export default function DropCountdown({
 
   useEffect(() => {
     if (target === null) {
-      setTarget(Date.now() + 14 * 86_400_000);
+      const t = setTimeout(() => setTarget(Date.now() + 14 * 86_400_000), 0);
+      return () => clearTimeout(t);
     }
   }, [target]);
 
@@ -75,9 +76,9 @@ export default function DropCountdown({
 
   useEffect(() => {
     if (target === null) return;
-    setT(diff(target));
+    const t = setTimeout(() => setT(diff(target)), 0);
     const id = setInterval(() => setT(diff(target)), 1000);
-    return () => clearInterval(id);
+    return () => { clearTimeout(t); clearInterval(id); };
   }, [target]);
 
   const units: { label: string; value: number }[] = [

@@ -7,6 +7,7 @@ import Footer from "@/components/Footer";
 import CurrencyModal from "@/components/CurrencyModal";
 import PromoBar from "@/components/PromoBar";
 import RainEffect from "@/components/RainEffect";
+import ArcadeToast from "@/components/ArcadeToast";
 
 const spaceGrotesk = Space_Grotesk({ subsets: ["latin"], variable: "--font-space" });
 const syncopate = Syncopate({ weight: ["400", "700"], subsets: ["latin"], variable: "--font-syncopate" });
@@ -34,6 +35,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
           <Navbar />
           {children}
           <Footer />
+          <ArcadeToast />
         </Providers>
       </body>
     </html>

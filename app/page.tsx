@@ -1,9 +1,8 @@
 "use client";
 
-import { useEffect, useState } from "react";
-import Image from "next/image";
+import { useEffect, useRef, useState } from "react";
 import Link from "next/link";
-import { AnimatePresence, motion } from "framer-motion";
+import { AnimatePresence, motion, useScroll, useTransform } from "framer-motion";
 import ProductMarquee from "@/components/ProductMarquee";
 import AboutScroller from "@/components/AboutScroller";
 import IntroSequence from "@/components/IntroSequence";
@@ -11,6 +10,8 @@ import DropCountdown from "@/components/DropCountdown";
 import Lookbook from "@/components/Lookbook";
 import Manifesto from "@/components/Manifesto";
 import NewsletterVIP from "@/components/NewsletterVIP";
+import HeroReel from "@/components/HeroReel";
+import Parallax from "@/components/Parallax";
 
 interface Product {
   id: string;
@@ -29,6 +30,15 @@ export default function HomePage() {
   const [products, setProducts] = useState<Product[]>([]);
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState(false);
+
+  // Hero parallax — drift + fade the headline as the reel scrolls behind it
+  const heroRef = useRef<HTMLElement>(null);
+  const { scrollYProgress: heroProgress } = useScroll({
+    target: heroRef,
+    offset: ["start start", "end start"],
+  });
+  const heroY = useTransform(heroProgress, [0, 1], ["0%", "40%"]);
+  const heroOpacity = useTransform(heroProgress, [0, 0.7], [1, 0]);
 
   useEffect(() => {
     async function fetchProducts() {
@@ -57,23 +67,15 @@ export default function HomePage() {
       {/* Intro Video Sequence */}
       <IntroSequence />
       {/* ═══════════ Full-Screen Blurred Hero ═══════════ */}
-      <section className="relative h-screen w-full overflow-hidden">
-        {/* Blurred Background Image */}
-        <Image
-          src="/hero-cartoon.png"
-          alt="7H editorial campaign"
-          fill
-          priority
-          className="object-cover scale-110"
-          style={{ filter: "blur(12px)" }}
-        />
-
-        {/* Dark overlays for contrast */}
-        <div className="absolute inset-0 bg-black/40" />
-        <div className="absolute inset-0 bg-gradient-to-b from-transparent via-transparent to-black" />
+      <section ref={heroRef} className="relative h-screen w-full overflow-hidden">
+        {/* Live, cycling product reel behind the headline */}
+        <HeroReel products={products} />
 
         {/* Hero Text Content */}
-        <div className="absolute inset-0 z-10 flex flex-col items-center justify-center text-center px-6">
+        <motion.div
+          style={{ y: heroY, opacity: heroOpacity }}
+          className="absolute inset-0 z-10 flex flex-col items-center justify-center text-center px-6"
+        >
           <motion.p
             initial={{ opacity: 0, y: -20 }}
             animate={{ opacity: 1, y: 0 }}
@@ -102,7 +104,7 @@ export default function HomePage() {
           >
             <Link
               href="/shop"
-              className="border-2 border-white px-10 py-4 font-black uppercase tracking-[0.3em] text-white transition-all duration-300 hover:bg-white hover:text-black hover:shadow-[0_0_40px_rgba(255,255,255,0.25)]"
+              className="btn-sheen border-2 border-white px-10 py-4 font-black uppercase tracking-[0.3em] text-white transition-all duration-300 hover:bg-white hover:text-black hover:shadow-[0_0_40px_rgba(255,255,255,0.25)]"
             >
               Shop Now
             </Link>
@@ -136,7 +138,7 @@ export default function HomePage() {
               </svg>
             </motion.div>
           </motion.div>
-        </div>
+        </motion.div>
       </section>
 
       {/* ═══════════ Drop Countdown ═══════════ */}
@@ -148,23 +150,36 @@ export default function HomePage() {
       {/* ═══════════ Premium Product Showcase — Horizontal Marquee ═══════════ */}
       <section className="relative w-full bg-black py-28 overflow-hidden">
         {/* Section header */}
-        <motion.div
-          initial={{ opacity: 0, y: 40 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.7 }}
-          className="mb-20 px-8 text-left"
-        >
-          <div className="flex items-center gap-4">
-             <div className="h-px w-12 bg-red-600" />
-             <p className="text-[10px] font-bold uppercase tracking-[0.5em] text-red-600">
-               Cinematic Experience
-             </p>
-          </div>
-          <h2 className="mt-4 text-6xl md:text-8xl font-black uppercase tracking-tighter text-white">
-            Live Drops
-          </h2>
-        </motion.div>
+        <Parallax speed={0.18} className="mb-20 px-8 text-left">
+          <motion.div
+            initial={{ opacity: 0, y: 40 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.7 }}
+          >
+            <div className="flex items-center gap-4">
+               <span className="h-2 w-2 rounded-full bg-red-600 arcade-blink" />
+               <div className="h-px w-12 bg-red-600" />
+               <p className="text-[10px] font-bold uppercase tracking-[0.5em] text-red-600">
+                 Cinematic Experience
+               </p>
+            </div>
+            <h2 className="mt-4 overflow-hidden text-6xl md:text-8xl font-black uppercase tracking-tighter text-white">
+              {"Live Drops".split(" ").map((word, i) => (
+                <motion.span
+                  key={word}
+                  initial={{ opacity: 0, y: "100%" }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true }}
+                  transition={{ duration: 0.7, delay: 0.15 + i * 0.12, ease: [0.33, 1, 0.68, 1] }}
+                  className="mr-4 inline-block"
+                >
+                  {word}
+                </motion.span>
+              ))}
+            </h2>
+          </motion.div>
+        </Parallax>
 
         <AnimatePresence mode="wait">
           {isLoading ? (
@@ -241,13 +256,16 @@ export default function HomePage() {
                 delay: 0.45
               }
             ].map((block, idx) => (
-              <motion.div
+              <Parallax
                 key={block.title}
+                speed={0.06 + idx * 0.05}
+                className={`relative px-6 py-6 ${idx !== 3 ? 'md:border-r md:border-dotted border-white/20' : ''}`}
+              >
+              <motion.div
                 initial={{ opacity: 0 }}
                 whileInView={{ opacity: 1 }}
                 viewport={{ once: true }}
                 transition={{ duration: 0.7, delay: block.delay }}
-                className={`relative px-6 py-6 ${idx !== 3 ? 'md:border-r md:border-dotted border-white/20' : ''}`}
               >
                 <div className={`flex flex-col gap-10 ${block.marginTop}`}>
                   <p className="font-mono text-[13px] md:text-sm leading-relaxed text-white uppercase max-w-[250px] font-medium tracking-wide">
@@ -263,13 +281,23 @@ export default function HomePage() {
                   </div>
                 </div>
               </motion.div>
+              </Parallax>
             ))}
           </div>
         </div>
       </section>
 
       {/* ═══════════ Newsletter VIP ═══════════ */}
-      <NewsletterVIP onSubscribe={async (email) => { console.log("subscribe:", email); }} />
+      <NewsletterVIP
+        onSubscribe={async (email) => {
+          const res = await fetch("/api/newsletter", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ email }),
+          });
+          if (!res.ok) throw new Error("Subscription failed");
+        }}
+      />
     </main>
   );
 }

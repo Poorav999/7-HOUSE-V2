@@ -1,13 +1,9 @@
 @import "tailwindcss";
 
-/* Hide scrollbar utility */
-.hide-scrollbar::-webkit-scrollbar {
-  display: none;
-}
-.hide-scrollbar {
-  -ms-overflow-style: none;
-  scrollbar-width: none;
-}
+/* ═══════════════════════════════════════════════════
+   7 HOUSES — global styles
+   Theme: black canvas + red (#dc2626) arcade accent
+   ═══════════════════════════════════════════════════ */
 
 @theme {
   --font-syncopate: var(--font-syncopate);
@@ -15,1192 +11,167 @@
   --font-vt323: var(--font-vt323);
 }
 
-/* ═══════════════════════════════════════════════════
-   MINECRAFT BLOCK THEME
-   Cobblestone: #5d5d5d (background)
-   Oak Wood: #8b6f47 (borders)
-   Diamond: #14b8e0 (accents)
-   ═══════════════════════════════════════════════════ */
-:root {
-  /* Minecraft Block Palette */
-  --mc-cobblestone: #5d5d5d;
-  --mc-cobblestone-light: #757575;
-  --mc-oak: #8b6f47;
-  --mc-oak-light: #a08968;
-  --mc-oak-dark: #6b5335;
-  --mc-diamond: #14b8e0;
-  --mc-diamond-dark: #0891b2;
-  --mc-diamond-light: #22d3ee;
-  --mc-stone: #707070;
-  --mc-grass: #4a9b4b;
-  --mc-dirt: #6d4c41;
-  --mc-sand: #c4a747;
-  --mc-gravel: #6b6b6b;
-  --mc-gold: #ffd700;
-  --mc-iron: #a8a8a8;
-
-  /* Legacy Nether Colors (still available) */
-  background: #5d5d5d;
-  color: #c7b377;
-  --bg-primary: #5d5d5d;
-  --bg-surface: #474747;
-  --bg-elevated: #3d3d3d;
-  --border-primary: #8b6f47;
-  --border-subtle: rgba(139, 111, 71, 0.2);
-  --border-medium: rgba(139, 111, 71, 0.35);
-  --accent: #14b8e0;
-  --accent-dark: #0891b2;
-  --accent-light: #22d3ee;
-  --text-primary: #c7b377;
-  --text-secondary: rgba(199, 179, 119, 0.75);
-  --text-muted: rgba(199, 179, 119, 0.45);
-  --glow-accent: rgba(20, 184, 224, 0.25);
-}
-
 html {
   scroll-behavior: auto !important;
 }
 
 body {
-  background: linear-gradient(135deg, #1a0f2e 0%, #2a1a3e 50%, #0f0a1a 100%);
+  background: #000;
   min-height: 100vh;
   overflow-x: hidden;
-  cursor: auto !important;
-  font-family: 'VT323', 'Courier New', monospace;
-  font-size: 14px;
-  line-height: 1.6;
-  position: relative;
 }
 
-/* Cherry Tree Background with Blur Effect */
-body::before {
-  content: '';
-  position: fixed;
-  top: -10%;
-  right: -15%;
-  width: 800px;
-  height: 800px;
-  background: radial-gradient(circle at 30% 40%, #8B1538 0%, #6B0F2E 15%, #4A0920 30%, transparent 60%);
-  filter: blur(80px);
-  opacity: 0.25;
-  pointer-events: none;
-  z-index: 0;
-  animation: cherry-sway 8s ease-in-out infinite;
-}
-
-body::after {
-  content: '';
-  position: fixed;
-  bottom: -20%;
-  left: -10%;
-  width: 600px;
-  height: 600px;
-  background: radial-gradient(circle at 60% 50%, #7A0E33 0%, #5A0A24 20%, #3A0615 40%, transparent 70%);
-  filter: blur(70px);
-  opacity: 0.2;
-  pointer-events: none;
-  z-index: 0;
-  animation: cherry-sway-reverse 10s ease-in-out infinite;
-}
-
+/* Cursor affordances */
 * {
-  cursor: auto !important;
-  /* Pixel-perfect rendering */
-  image-rendering: pixelated;
-  image-rendering: crisp-edges;
+  cursor: auto;
 }
 a, button, [role="button"] {
-  cursor: pointer !important;
-}
-
-/* ═══════════════════════════════════════════════════
-   BLOCKY BASE COMPONENTS
-   ═══════════════════════════════════════════════════ */
-
-/* BLOCK CONTAINER - Sharp edges, no rounded corners */
-.block-container {
-  background: var(--bg-surface);
-  border: 3px solid var(--border-primary);
-  box-shadow: 
-    inset 0 2px 4px rgba(0, 0, 0, 0.4),
-    0 4px 0 rgba(0, 0, 0, 0.3);
-  padding: 16px;
-}
-
-/* BLOCK PANEL - Elevated blocky style */
-.block-panel {
-  background: linear-gradient(180deg, var(--bg-elevated) 0%, var(--bg-surface) 100%);
-  border: 2px solid var(--border-primary);
-  box-shadow: 
-    inset 0 1px 2px rgba(255, 255, 255, 0.1),
-    0 8px 0 rgba(0, 0, 0, 0.4);
-  padding: 20px;
-  position: relative;
-}
-
-/* BLOCK BUTTON - Pixel-perfect clickable */
-.block-button {
-  background: linear-gradient(180deg, var(--accent-light) 0%, var(--accent) 100%);
-  border: 2px solid var(--accent-dark);
-  padding: 10px 20px;
-  font-family: 'VT323', monospace;
-  font-size: 14px;
-  font-weight: bold;
-  text-transform: uppercase;
-  letter-spacing: 0.1em;
-  box-shadow: 
-    0 4px 0 var(--accent-dark),
-    0 6px 8px rgba(0, 0, 0, 0.3);
-  transition: all 0.1s ease;
   cursor: pointer;
 }
 
-.block-button:hover {
-  background: linear-gradient(180deg, var(--accent) 0%, var(--accent-dark) 100%);
-  box-shadow: 
-    0 3px 0 var(--accent-dark),
-    0 5px 6px rgba(0, 0, 0, 0.3);
-  transform: translateY(1px);
-}
-
-.block-button:active {
-  background: var(--accent-dark);
-  box-shadow: 
-    inset 0 2px 4px rgba(0, 0, 0, 0.3),
-    0 2px 0 var(--accent-dark);
-  transform: translateY(3px);
-}
-
-/* BLOCKY TEXT */
-.block-text {
-  font-family: 'VT323', monospace;
-  letter-spacing: 0.05em;
-  text-shadow: 2px 2px 0 rgba(0, 0, 0, 0.3);
-}
-
-.block-text-lg {
-  font-size: 24px;
-  line-height: 1.4;
-}
-
-.block-text-md {
-  font-size: 16px;
-  line-height: 1.5;
-}
-
-.block-text-sm {
-  font-size: 12px;
-  line-height: 1.6;
-}
-
-/* BLOCK GRID - Minecraft-style grid layout */
-.block-grid {
-  display: grid;
-  gap: 0;
-  background: linear-gradient(
-    0deg,
-    rgba(139, 111, 71, 0.1) 1px,
-    transparent 1px
-  ),
-  linear-gradient(
-    90deg,
-    rgba(139, 111, 71, 0.1) 1px,
-    transparent 1px
-  );
-  background-size: 32px 32px;
-}
-
-/* BLOCK CARD - Container for items */
-.block-card {
-  background: linear-gradient(135deg, #575757 0%, #4a4a4a 100%);
-  border: 2px solid var(--border-primary);
-  box-shadow: 
-    inset 0 1px 0 rgba(255, 255, 255, 0.15),
-    0 4px 8px rgba(0, 0, 0, 0.4);
-  padding: 16px;
-  position: relative;
-  transition: all 0.15s ease;
-}
-
-.block-card::before {
-  content: '';
-  position: absolute;
-  inset: 0;
-  background: repeating-linear-gradient(
-    0deg,
-    rgba(0, 0, 0, 0.05) 0px,
-    rgba(0, 0, 0, 0.05) 1px,
-    transparent 1px,
-    transparent 2px
-  );
-  pointer-events: none;
-  opacity: 0.3;
-}
-
-.block-card:hover {
-  border-color: var(--accent);
-  box-shadow: 
-    inset 0 1px 0 rgba(255, 255, 255, 0.2),
-    0 4px 12px rgba(20, 184, 224, 0.3);
-  background: linear-gradient(135deg, #656565 0%, #575757 100%);
-}
-
-/* ACCENT BORDER - Diamond blue highlight */
-.accent-border {
-  border-color: var(--accent) !important;
-  box-shadow: 0 0 12px rgba(20, 184, 224, 0.4) !important;
-}
-
-* {
-  cursor: auto !important;
-}
-a, button, [role="button"] {
-  cursor: pointer !important;
-}
-
-/* GLASSMORPHISM BUTTONS EVERYWHERE */
-button, [role="button"], .block-button {
-  background: rgba(255, 255, 255, 0.05) !important;
-  backdrop-filter: blur(12px) !important;
-  -webkit-backdrop-filter: blur(12px) !important;
-  border: 1px solid rgba(255, 255, 255, 0.2) !important;
-  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.1) !important;
-  transition: all 0.3s ease !important;
-  border-radius: 8px !important;
-  color: white !important;
-}
-
-button:hover, [role="button"]:hover, .block-button:hover {
-  background: rgba(255, 255, 255, 0.15) !important;
-  border-color: rgba(255, 255, 255, 0.5) !important;
-  box-shadow: 0 4px 24px rgba(255, 255, 255, 0.2) !important;
-  transform: translateY(-2px) !important;
-  color: white !important;
-}
-
-button:active, [role="button"]:active, .block-button:active {
-  transform: translateY(1px) !important;
-  background: rgba(255, 255, 255, 0.08) !important;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1) !important;
-}
-
-/* ═══════════════════════════════════════════════════
-   FLOATING NAVBAR - MINECRAFT BLOCK STYLE
-   ═══════════════════════════════════════════════════ */
-.navbar-float {
-  background: linear-gradient(180deg, rgba(91, 91, 91, 0.95) 0%, rgba(74, 74, 74, 0.95) 100%);
-  border: 3px solid var(--mc-oak);
-  border-radius: 0;
-  box-shadow:
-    0 4px 0 rgba(0, 0, 0, 0.4),
-    inset 0 1px 2px rgba(255, 255, 255, 0.1);
-  transition: all 0.15s ease;
-  position: relative;
-}
-
-.navbar-float::before {
-  content: '';
-  position: absolute;
-  inset: -1px;
-  background: repeating-linear-gradient(
-    0deg,
-    rgba(139, 111, 71, 0.1) 0px,
-    rgba(139, 111, 71, 0.1) 1px,
-    transparent 1px,
-    transparent 2px
-  );
-  pointer-events: none;
-}
-
-.navbar-float:hover {
-  border-color: var(--accent);
-  background: linear-gradient(180deg, rgba(93, 93, 93, 0.98) 0%, rgba(84, 84, 84, 0.98) 100%);
-  box-shadow:
-    0 4px 0 var(--accent-dark),
-    0 0 16px rgba(20, 184, 224, 0.4),
-    inset 0 1px 2px rgba(255, 255, 255, 0.15);
-}
-
-/* ═══════════════════════════════════════════════════
-   USER PROFILE BADGE - NETHER STYLE
-   ═══════════════════════════════════════════════════ */
-.user-profile-badge {
-  background: linear-gradient(135deg, rgba(45, 21, 20, 0.8), rgba(61, 31, 24, 0.8));
-  border: 1px solid var(--accent);
-  border-radius: 0;
-  padding: 6px 12px;
-  transition: all 0.3s ease;
-  box-shadow: 0 0 15px rgba(255, 107, 26, 0.3);
-}
-.user-profile-badge:hover {
-  border-color: var(--accent-bright);
-  background: linear-gradient(135deg, rgba(61, 31, 24, 1), rgba(77, 41, 34, 1));
-  box-shadow: 0 0 25px rgba(255, 184, 0, 0.6);
-}
-
-/* ═══════════════════════════════════════════════════
-   PIXEL BLOCK CARD - MINECRAFT BLOCK STYLE
-   ═══════════════════════════════════════════════════ */
-.game-card {
-  display: flex;
-  flex-direction: column;
-  width: 260px;
-  min-width: 260px;
-  background: linear-gradient(135deg, #575757 0%, #4a4a4a 100%);
-  border: 3px solid var(--mc-oak);
-  border-radius: 0;
-  overflow: hidden;
-  transition: all 0.15s ease;
-  position: relative;
-  box-shadow: 
-    0 4px 0 rgba(0, 0, 0, 0.4),
-    inset 0 1px 2px rgba(255, 255, 255, 0.1);
-}
-
-.game-card::before {
-  content: '';
-  position: absolute;
-  inset: 0;
-  background: 
-    repeating-linear-gradient(
-      0deg,
-      rgba(139, 111, 71, 0.08) 0px,
-      rgba(139, 111, 71, 0.08) 1px,
-      transparent 1px,
-      transparent 2px
-    ),
-    repeating-linear-gradient(
-      90deg,
-      rgba(139, 111, 71, 0.08) 0px,
-      rgba(139, 111, 71, 0.08) 1px,
-      transparent 1px,
-      transparent 2px
-    );
-  pointer-events: none;
-  opacity: 0.4;
-}
-
-.game-card::after {
-  content: '';
-  position: absolute;
-  inset: 0;
-  background: radial-gradient(circle at 50% 0%, rgba(20, 184, 224, 0.08), transparent 70%);
-  pointer-events: none;
-}
-
-.game-card:hover {
-  transform: translate(0, -2px);
-  border-color: var(--accent);
-  background: linear-gradient(135deg, #656565 0%, #575757 100%);
-  box-shadow: 
-    0 6px 0 var(--accent-dark),
-    0 0 16px rgba(20, 184, 224, 0.4),
-    inset 0 1px 2px rgba(255, 255, 255, 0.15);
-}
-
-/* Card Top Bar */
-.game-card-topbar {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  padding: 12px 14px;
-  border-bottom: 2px solid var(--mc-oak);
-  background: linear-gradient(180deg, #4a4a4a 0%, #3d3d3d 100%);
-  font-family: 'VT323', monospace;
-  font-size: 11px;
-}
-
-/* Card Image Display */
-.game-card-display {
-  position: relative;
-  width: 100%;
-  aspect-ratio: 4 / 5;
-  background: linear-gradient(135deg, #5d5d5d 0%, #4a4a4a 100%);
-  overflow: hidden;
-  border: 2px solid var(--mc-cobblestone);
-}
-
-/* Screen area */
-.game-card-screen {
-  position: relative;
-  width: 100%;
-  aspect-ratio: 4 / 5;
-  background: linear-gradient(135deg, #474747 0%, #3d3d3d 100%);
-  overflow: hidden;
-  border-top: 2px dashed var(--mc-oak);
-  border-bottom: 2px dashed var(--mc-oak);
-}
-
-/* Subtle screen glow */
-.screen-glow {
-  position: absolute;
-  inset: 0;
-  background: radial-gradient(circle, rgba(20, 184, 224, 0.12), transparent 70%);
-  opacity: 0;
-  pointer-events: none;
-  transition: opacity 0.3s ease;
-}
-
-/* Knob button */
-.knob-btn {
-  width: 24px;
-  height: 24px;
-  border-radius: 0;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  color: var(--accent);
-  background: linear-gradient(180deg, var(--bg-surface), var(--bg-elevated));
-  border: 2px solid var(--accent);
-  transition: all 0.15s ease;
-  font-weight: bold;
-  font-family: 'VT323', monospace;
-}
-.knob-btn:hover {
-  color: var(--accent-light);
-  background: var(--accent-dark);
-  border-color: var(--accent-light);
-  box-shadow: 0 0 12px rgba(20, 184, 224, 0.5);
-}
-
-.knob-btn:active {
-  transform: translate(1px, 1px);
-}
-
-.game-card:hover .screen-glow {
-  opacity: 0.3;
-}
-
-/* Console Button */
-.console-btn {
-  width: 28px;
-  height: 28px;
-  border-radius: 0;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  color: var(--accent);
-  background: linear-gradient(180deg, var(--bg-surface), var(--bg-elevated));
-  border: 2px solid var(--accent);
-  transition: all 0.15s ease;
-  font-weight: bold;
-  font-family: 'VT323', monospace;
-}
-.console-btn:hover {
-  color: var(--accent-light);
-  background: var(--accent-dark);
-  border-color: var(--accent-light);
-  box-shadow: 0 0 12px rgba(20, 184, 224, 0.5);
-}
-
-.console-btn:active {
-  transform: translate(1px, 1px);
-}
-
-/* Game Card Controls */
-.game-card-controls {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  padding: 12px 14px;
-  border-top: 2px solid var(--mc-oak);
-  background: linear-gradient(180deg, #4a4a4a 0%, #3d3d3d 100%);
-}
-
-
-/* Game Card Name */
-.game-card-name {
-  padding: 8px 14px;
-  border-top: 2px solid var(--mc-oak);
-  background: linear-gradient(180deg, #4a4a4a 0%, #3d3d3d 100%);
-  font-family: 'VT323', monospace;
-  font-size: 11px;
-}
-
-/* ═══════════════════════════════════════════════════
-   VIDEO STRIP - MINECRAFT BLOCK STYLE
-   ═══════════════════════════════════════════════════ */
-.video-strip {
-  position: relative;
-  width: 100%;
-  height: 80px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  background: linear-gradient(90deg, rgba(93, 93, 93, 0.9), rgba(74, 74, 74, 0.9));
-  border-top: 3px solid var(--mc-oak);
-  border-bottom: 3px solid var(--mc-oak);
-  overflow: hidden;
-  box-shadow: 
-    0 4px 0 rgba(0, 0, 0, 0.3),
-    inset 0 1px 2px rgba(255, 255, 255, 0.1);
-}
-
-/* ═══════════════════════════════════════════════════
-   ANIMATED MINECRAFT BACKGROUND
-   ═══════════════════════════════════════════════════ */
-.mc-bg-canvas {
-  position: fixed;
-  inset: 0;
-  z-index: -1;
-  pointer-events: none;
-  overflow: hidden;
-  background: linear-gradient(135deg, #474747 0%, #5d5d5d 50%, #525252 100%);
-}
-
-/* Diamond ore particles (subtle) */
-.mc-bg-canvas::before {
-  content: '';
-  position: absolute;
-  inset: -20%;
-  background-image:
-    radial-gradient(1px 1px at 10% 20%, rgba(20, 184, 224, 0.08) 0%, transparent 100%),
-    radial-gradient(1px 1px at 30% 60%, rgba(20, 184, 224, 0.06) 0%, transparent 100%),
-    radial-gradient(1px 1px at 50% 30%, rgba(139, 111, 71, 0.07) 0%, transparent 100%),
-    radial-gradient(1px 1px at 70% 80%, rgba(20, 184, 224, 0.05) 0%, transparent 100%),
-    radial-gradient(1px 1px at 90% 40%, rgba(139, 111, 71, 0.06) 0%, transparent 100%),
-    radial-gradient(1.5px 1.5px at 20% 90%, rgba(20, 184, 224, 0.07) 0%, transparent 100%),
-    radial-gradient(1px 1px at 80% 10%, rgba(139, 111, 71, 0.05) 0%, transparent 100%);
-  animation: mc-drift 25s linear infinite;
-}
-
-/* Minecraft cobblestone pattern overlay */
-.mc-bg-canvas::after {
-  content: '';
-  position: absolute;
-  inset: 0;
-  background-image:
-    linear-gradient(rgba(139, 111, 71, 0.08) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(139, 111, 71, 0.08) 1px, transparent 1px);
-  background-size: 64px 64px;
-  animation: mc-grid-drift 40s linear infinite;
-}
-
-@keyframes mc-drift {
-  0%   { transform: translate(0, 0); }
-  100% { transform: translate(50px, -70px); }
-}
-
-@keyframes mc-grid-drift {
-  0%   { transform: translate(0, 0); }
-  100% { transform: translate(64px, 64px); }
-}
-
-/* Diamond ore glow orbs */
-.mc-glow-orb {
-  position: absolute;
-  border-radius: 50%;
-  filter: blur(100px);
-  opacity: 0.12;
-  animation: diamond-pulse 7s ease-in-out infinite alternate;
-}
-.mc-glow-orb:nth-child(1) {
-  width: 400px;
-  height: 400px;
-  background: radial-gradient(circle, #14b8e0, transparent 70%);
-  top: 10%;
-  left: -5%;
-  animation-delay: 0s;
-  animation-duration: 9s;
-}
-.mc-glow-orb:nth-child(2) {
-  width: 300px;
-  height: 300px;
-  background: radial-gradient(circle, #0891b2, transparent 70%);
-  bottom: 20%;
-  right: -3%;
-  animation-delay: -3s;
-  animation-duration: 11s;
-}
-.mc-glow-orb:nth-child(3) {
-  width: 250px;
-  height: 250px;
-  background: radial-gradient(circle, #8b6f47, transparent 70%);
-  top: 50%;
-  left: 40%;
-  animation-delay: -6s;
-  animation-duration: 13s;
-  opacity: 0.08;
-}
-
-@keyframes diamond-pulse {
-  0%   { opacity: 0.08; transform: scale(1); }
-  100% { opacity: 0.18; transform: scale(1.15); }
-}
-
-/* ═══════════════════════════════════════════════════
-   HOMEPAGE LAYOUT - NETHER EDITION
-   ═══════════════════════════════════════════════════ */
-.homepage-shell {
-  position: relative;
-  width: 100%;
-  height: 100vh;
-  display: flex;
-  flex-direction: column;
-  overflow: hidden;
-}
-
-.homepage-main {
-  flex: 1;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  padding: 280px 24px 0 24px;
-  min-height: 600px;
-  width: 100%;
-}
-
-.cards-row {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 28px;
-  flex-wrap: nowrap;
-}
-
-/* Minecraft block-like frame */
-.cards-frame {
-  position: relative;
-  padding: 32px;
-  background: linear-gradient(135deg, rgba(93, 93, 93, 0.2), rgba(74, 74, 74, 0.2));
-  border: 4px solid var(--mc-oak);
-  border-radius: 0;
-  box-shadow: 
-    0 4px 0 rgba(0, 0, 0, 0.3),
-    inset 0 0 20px rgba(139, 111, 71, 0.08);
-}
-
-.cards-frame::before,
-.cards-frame::after {
-  content: '';
-  position: absolute;
-  width: 32px;
-  height: 32px;
-  border-color: var(--accent);
-  border-style: solid;
-  pointer-events: none;
-  background: rgba(20, 184, 224, 0.03);
-  box-shadow: 0 0 12px rgba(20, 184, 224, 0.3);
-}
-.cards-frame::before {
-  top: -4px;
-  left: -4px;
-  border-width: 3px 0 0 3px;
-}
-.cards-frame::after {
-  bottom: -4px;
-  right: -4px;
-  border-width: 0 3px 3px 0;
-}
-
-/* Side label - MINECRAFT THEME */
-.side-label {
-  position: absolute;
-  left: 20px;
-  top: 50%;
-  transform: translateY(-50%) rotate(-90deg);
-  transform-origin: center center;
-  white-space: nowrap;
-  font-size: 12px;
-  letter-spacing: 0.3em;
-  text-transform: uppercase;
-  color: var(--accent);
-  font-family: 'VT323', monospace;
-  font-weight: bold;
-  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.4), 0 0 8px rgba(20, 184, 224, 0.3);
-  animation: pixel-pulse 2.5s ease-in-out infinite;
-  z-index: 10;
-}
-
-/* ═══════════════════════════════════════════════════
-   HERO SECTION - SPAWN POINT ASSEMBLY ANIMATION
-   ═══════════════════════════════════════════════════ */
-.hero-spawn-section {
-  position: absolute;
-  top: 80px;
-  left: 50%;
-  transform: translateX(-50%);
-  z-index: 20;
-  text-align: center;
-  pointer-events: auto;
-}
-
-.hero-block {
-  margin: 8px 0;
-  padding: 16px 32px;
-  border: 3px solid var(--mc-oak);
-  background: linear-gradient(135deg, rgba(93, 93, 93, 0.85), rgba(74, 74, 74, 0.85));
-  box-shadow: 
-    0 4px 0 rgba(0, 0, 0, 0.4),
-    inset 0 1px 2px rgba(255, 255, 255, 0.1),
-    0 0 12px rgba(20, 184, 224, 0.15);
-  backdrop-filter: blur(4px);
-}
-
-.hero-block-top {
-  border-bottom: 1px solid rgba(139, 111, 71, 0.3);
-}
-
-.hero-block-middle {
-  border-top: 1px solid rgba(139, 111, 71, 0.3);
-  border-bottom: 1px solid rgba(139, 111, 71, 0.3);
-}
-
-.hero-block-bottom {
-  border-top: 1px solid rgba(139, 111, 71, 0.3);
-}
-
-.hero-text {
-  font-family: 'VT323', monospace;
-  font-weight: bold;
-  letter-spacing: 0.15em;
-  text-transform: uppercase;
-  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.5), 0 0 12px rgba(20, 184, 224, 0.3);
-  margin: 0;
-}
-
-.hero-title {
-  font-size: 28px;
-  color: var(--accent-light);
-}
-
-.hero-subtitle {
-  font-size: 16px;
-  color: var(--mc-sand);
-  letter-spacing: 0.2em;
-}
-
-.hero-tagline {
-  font-size: 12px;
-  color: var(--accent);
-  letter-spacing: 0.25em;
-}
-
-/* ═══════════════════════════════════════════════════
-   INVENTORY GRID - ADVENTURE INVENTORY SCREEN
-   ═══════════════════════════════════════════════════ */
-.inventory-grid {
-  position: relative;
-  width: 100%;
-  max-width: 1200px;
-  padding: 0;
-  margin: 0 auto;
-}
-
-.inventory-header {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  height: 40px;
-  background: linear-gradient(180deg, rgba(74, 74, 74, 0.9), rgba(61, 61, 61, 0.9));
-  border: 3px solid var(--mc-oak);
-  border-bottom: 1px solid rgba(139, 111, 71, 0.3);
-  margin-bottom: 0;
-  position: relative;
-}
-
-.inventory-header::before {
-  content: '';
-  position: absolute;
-  left: 0;
-  right: 0;
-  top: 0;
-  height: 1px;
-  background: linear-gradient(90deg, transparent, rgba(20, 184, 224, 0.5), transparent);
-}
-
-.inventory-label {
-  font-family: 'VT323', monospace;
-  font-size: 14px;
-  font-weight: bold;
-  letter-spacing: 0.2em;
-  text-transform: uppercase;
-  color: var(--accent);
-  text-shadow: 0 0 8px rgba(20, 184, 224, 0.4);
-}
-
-.inventory-slots {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 16px;
-  padding: 24px;
-  background: linear-gradient(135deg, rgba(74, 74, 74, 0.6), rgba(61, 61, 61, 0.6));
-  border: 3px solid var(--mc-oak);
-  border-top: 1px solid rgba(139, 111, 71, 0.3);
-  box-shadow: 
-    0 4px 0 rgba(0, 0, 0, 0.3),
-    inset 0 1px 2px rgba(255, 255, 255, 0.05),
-    inset 0 0 20px rgba(139, 111, 71, 0.08);
-}
-
-.inventory-slot {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  min-height: 360px;
-  padding: 12px;
-  background: linear-gradient(135deg, rgba(85, 85, 85, 0.3), rgba(74, 74, 74, 0.3));
-  border: 2px solid rgba(139, 111, 71, 0.4);
-  box-shadow: 
-    inset 0 1px 2px rgba(255, 255, 255, 0.05),
-    0 0 8px rgba(20, 184, 224, 0.1);
-  transition: all 0.3s ease;
-  position: relative;
-}
-
-.inventory-slot:hover {
-  border-color: var(--accent);
-  background: linear-gradient(135deg, rgba(93, 93, 93, 0.4), rgba(84, 84, 84, 0.4));
-  box-shadow: 
-    inset 0 1px 2px rgba(255, 255, 255, 0.08),
-    0 0 16px rgba(20, 184, 224, 0.2);
-  transform: translateY(-2px);
-}
-
-.inventory-slot::before {
-  content: '';
-  position: absolute;
-  inset: 0;
-  background: 
-    repeating-linear-gradient(
-      0deg,
-      rgba(139, 111, 71, 0.04) 0px,
-      rgba(139, 111, 71, 0.04) 1px,
-      transparent 1px,
-      transparent 2px
-    ),
-    repeating-linear-gradient(
-      90deg,
-      rgba(139, 111, 71, 0.04) 0px,
-      rgba(139, 111, 71, 0.04) 1px,
-      transparent 1px,
-      transparent 2px
-    );
-  pointer-events: none;
-  border-radius: 0;
-}
-
-/* ═══════════════════════════════════════════════════
-   RESPONSIVE INVENTORY GRID
-   ═══════════════════════════════════════════════════ */
-@media (max-width: 1024px) {
-  .inventory-slots {
-    grid-template-columns: repeat(2, 1fr);
-    gap: 12px;
-    padding: 16px;
-  }
-  
-  .hero-title {
-    font-size: 22px;
-  }
-  
-  .hero-subtitle {
-    font-size: 14px;
-  }
-  
-  .hero-tagline {
-    font-size: 10px;
-  }
-}
-
-@media (max-width: 640px) {
-  .inventory-slots {
-    grid-template-columns: repeat(1, 1fr);
-    gap: 8px;
-    padding: 12px;
-  }
-  
-  .inventory-slot {
-    min-height: 300px;
-    padding: 8px;
-  }
-  
-  .hero-title {
-    font-size: 16px;
-  }
-  
-  .hero-subtitle {
-    font-size: 11px;
-  }
-  
-  .hero-tagline {
-    font-size: 8px;
-  }
-  
-  .hero-block {
-    padding: 12px 20px;
-    margin: 4px 0;
-  }
-  
-  .side-label {
-    font-size: 9px;
-    letter-spacing: 0.2em;
-  }
-}
-
-/* ═══════════════════════════════════════════════════
-   SCROLLBAR HIDE
-   ═══════════════════════════════════════════════════ */
-.no-scrollbar::-webkit-scrollbar { display: none; }
-.no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
-
-/* ═══════════════════════════════════════════════════
-   GLASS PANEL / BUTTON - MINECRAFT BLOCK STYLE
-   ═══════════════════════════════════════════════════ */
-.glass-panel {
-  background: linear-gradient(135deg, rgba(85, 85, 85, 0.9), rgba(74, 74, 74, 0.9));
-  border: 3px solid var(--mc-oak);
-  border-radius: 0;
-  box-shadow: 
-    0 4px 0 rgba(0, 0, 0, 0.3),
-    inset 0 1px 2px rgba(255, 255, 255, 0.1);
-}
-
-.glass-button {
-  background: linear-gradient(180deg, var(--accent-light) 0%, var(--accent) 100%);
-  border: 2px solid var(--accent-dark);
-  box-shadow: 
-    0 4px 0 var(--accent-dark),
-    0 6px 8px rgba(0, 0, 0, 0.3);
-  color: #ffffff;
-  transition: all 0.1s ease;
-  border-radius: 0;
-  font-weight: 700;
-  text-shadow: 0 2px 3px rgba(0, 0, 0, 0.5);
-  font-family: 'VT323', monospace;
-  font-size: 14px;
-  text-transform: uppercase;
-  letter-spacing: 0.1em;
-  padding: 10px 20px;
-}
-.glass-button:hover {
-  background: linear-gradient(180deg, var(--accent) 0%, var(--accent-dark) 100%);
-  box-shadow: 
-    0 3px 0 var(--accent-dark),
-    0 5px 6px rgba(0, 0, 0, 0.3);
-  transform: translateY(1px);
-}
-.glass-button:active {
-  transform: translateY(3px);
-  box-shadow: 
-    inset 0 2px 4px rgba(0, 0, 0, 0.3),
-    0 2px 0 var(--accent-dark);
-}
-
-/* MC Card */
-.mc-card {
-  background: linear-gradient(135deg, #575757 0%, #4a4a4a 100%);
-  border: 3px solid var(--mc-oak);
-  border-radius: 0;
-  overflow: hidden;
-  box-shadow: 
-    0 4px 0 rgba(0, 0, 0, 0.3),
-    inset 0 1px 2px rgba(255, 255, 255, 0.1);
-}
-.mc-card:hover {
-  border-color: var(--accent);
-  box-shadow: 
-    0 4px 0 var(--accent-dark),
-    0 0 16px rgba(20, 184, 224, 0.4),
-    inset 0 1px 2px rgba(255, 255, 255, 0.15);
-}
-
-/* ═══════════════════════════════════════════════════
-   RESPONSIVE
-   ═══════════════════════════════════════════════════ */
-@media (max-width: 960px) {
-  .cards-row {
-    flex-direction: column;
-    gap: 20px;
-  }
-  .game-card {
-    width: 240px;
-    min-width: 240px;
-  }
-  .side-label {
-    display: none;
-  }
-  .homepage-main {
-    padding-top: 70px;
-    overflow-y: auto;
-  }
-  .homepage-shell {
-    height: auto;
-    min-height: 100vh;
-  }
-}
-
-/* ═══════════════════════════════════════════════════
-   HALLOWEEN ANIMATIONS
-   ═══════════════════════════════════════════════════ */
-
-/* Cherry Tree Sway Animation */
-@keyframes cherry-sway {
-  0%, 100% {
-    transform: translateX(0) translateY(0) scale(1);
-  }
-  25% {
-    transform: translateX(-15px) translateY(10px) scale(1.02);
-  }
-  50% {
-    transform: translateX(0) translateY(0) scale(1);
-  }
-  75% {
-    transform: translateX(15px) translateY(-10px) scale(0.98);
-  }
-}
-
-@keyframes cherry-sway-reverse {
-  0%, 100% {
-    transform: translateX(0) translateY(0) scale(1);
-  }
-  25% {
-    transform: translateX(15px) translateY(-10px) scale(1.02);
-  }
-  50% {
-    transform: translateX(0) translateY(0) scale(1);
-  }
-  75% {
-    transform: translateX(-15px) translateY(10px) scale(0.98);
-  }
-}
-
-/* Enhanced Pulsing Animation */
-@keyframes enhanced-pulse {
-  0%, 100% {
-    opacity: 0.8;
-    transform: scale(1);
-  }
-  50% {
-    opacity: 1;
-    transform: scale(1.05);
-  }
-}
-
-/* Floating Animation */
-@keyframes float-bounce {
-  0%, 100% {
-    transform: translateY(0px);
-  }
-  50% {
-    transform: translateY(-12px);
-  }
-}
-
-/* Glow Pulse Animation */
-@keyframes glow-pulse {
-  0%, 100% {
-    box-shadow: 0 0 20px rgba(255, 122, 26, 0.4), 0 0 40px rgba(255, 122, 26, 0.1);
-  }
-  50% {
-    box-shadow: 0 0 30px rgba(255, 122, 26, 0.6), 0 0 60px rgba(255, 122, 26, 0.2);
-  }
-}
-
-/* Shimmer Animation */
-@keyframes shimmer-shine {
-  0% {
-    left: -100%;
-  }
-  100% {
-    left: 100%;
-  }
-}
-
-/* Rotation Animation */
-@keyframes spin-rotate {
-  0% {
-    transform: rotate(0deg);
-  }
-  100% {
-    transform: rotate(360deg);
-  }
-}
-
-/* Slide Down Animation */
-@keyframes slide-down {
-  from {
-    opacity: 0;
-    transform: translateY(-20px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
-}
-
-/* Fade In Scale */
-@keyframes fade-in-scale {
-  from {
-    opacity: 0;
-    transform: scale(0.95);
-  }
-  to {
-    opacity: 1;
-    transform: scale(1);
-  }
-}
-
-/* Apply animations to elements */
-.hero-spawn-section {
-  animation: slide-down 0.6s ease-out;
-}
-
-.game-card {
-  animation: fade-in-scale 0.5s ease-out;
-  transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
-}
-
-.game-card:hover {
-  animation: float-bounce 2s ease-in-out infinite;
-  transform: translateY(-8px) !important;
-}
-
-.hero-title,
-.hero-subtitle,
-.hero-tagline {
-  animation: enhanced-pulse 3s ease-in-out infinite;
-}
-
-.inventory-slot:hover {
-  animation: glow-pulse 1.5s ease-in-out infinite;
-}
-
-.glass-button:hover {
-  background: linear-gradient(180deg, var(--accent) 0%, var(--accent-dark) 100%);
-  animation: shimmer-shine 2s infinite;
-  background-position: 200% center;
-}
-
-/* Shine overlay for buttons */
-.glass-button::before {
-  content: '';
-  position: absolute;
-  top: 0;
-  left: -100%;
-  width: 100%;
-  height: 100%;
-  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
-  animation: shimmer-shine 2s infinite;
-  pointer-events: none;
-}
-
-/* Smooth transitions for all interactive elements */
+/* Smooth, springy transitions on interactive elements */
 button, a, [role="button"] {
-  transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+  transition: color 0.2s ease, background-color 0.2s ease, border-color 0.2s ease,
+    box-shadow 0.3s ease, transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
 }
 
-/* Enhanced hover effects */
-.navbar-float:hover {
-  transform: translateY(-2px);
-  animation: glow-pulse 2s ease-in-out infinite;
+/* Hide scrollbar utilities */
+.hide-scrollbar::-webkit-scrollbar,
+.no-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+.hide-scrollbar,
+.no-scrollbar {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
 }
 
-/* Text transitions */
-.block-text {
-  transition: all 0.3s ease;
+/* ═══════════════════════════════════════════════════
+   ARCADE / HUD UTILITIES  (game-style, theme-safe)
+   ═══════════════════════════════════════════════════ */
+
+/* CRT scanline overlay — drop inside any relative container */
+.scanlines::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background: repeating-linear-gradient(
+    0deg,
+    rgba(255, 255, 255, 0.04) 0px,
+    rgba(255, 255, 255, 0.04) 1px,
+    transparent 1px,
+    transparent 3px
+  );
+  mix-blend-mode: overlay;
+  z-index: 1;
 }
 
-.block-text:hover {
-  text-shadow: 2px 2px 0 rgba(0, 0, 0, 0.3), 0 0 20px rgba(255, 122, 26, 0.5);
+/* HUD corner brackets — pure CSS, sits on a relative parent */
+.hud-corners::before,
+.hud-corners::after {
+  content: "";
+  position: absolute;
+  width: 18px;
+  height: 18px;
+  pointer-events: none;
+  z-index: 2;
+}
+.hud-corners::before {
+  top: 8px;
+  left: 8px;
+  border-top: 2px solid rgba(220, 38, 38, 0.7);
+  border-left: 2px solid rgba(220, 38, 38, 0.7);
+}
+.hud-corners::after {
+  bottom: 8px;
+  right: 8px;
+  border-bottom: 2px solid rgba(220, 38, 38, 0.7);
+  border-right: 2px solid rgba(255, 255, 255, 0.3);
+}
+
+/* Glitch text — wrap text, set data-text to same string for the layers */
+.glitch {
+  position: relative;
+  display: inline-block;
+}
+.glitch::before,
+.glitch::after {
+  content: attr(data-text);
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  opacity: 0.8;
+}
+.glitch::before {
+  color: #dc2626;
+  animation: glitch-x 2.6s infinite steps(2, jump-none);
+  clip-path: inset(0 0 55% 0);
+}
+.glitch::after {
+  color: #38bdf8;
+  animation: glitch-x 3.4s infinite reverse steps(2, jump-none);
+  clip-path: inset(55% 0 0 0);
+}
+
+@keyframes glitch-x {
+  0%, 92%, 100% { transform: translate3d(0, 0, 0); opacity: 0; }
+  93% { transform: translate3d(-2px, 0, 0); opacity: 0.85; }
+  95% { transform: translate3d(2px, 0, 0); opacity: 0.85; }
+  97% { transform: translate3d(-1px, 0, 0); opacity: 0.85; }
+}
+
+/* Arcade pulse for live indicators */
+@keyframes arcade-pulse {
+  0%, 100% { opacity: 1; box-shadow: 0 0 8px rgba(220, 38, 38, 0.8); }
+  50% { opacity: 0.45; box-shadow: 0 0 2px rgba(220, 38, 38, 0.4); }
+}
+.arcade-blink {
+  animation: arcade-pulse 1.4s ease-in-out infinite;
+}
+
+/* "Unlock" achievement pop (used by the global toast) */
+@keyframes unlock-pop {
+  0% { transform: translateY(24px) scale(0.9); opacity: 0; }
+  12% { transform: translateY(0) scale(1.04); opacity: 1; }
+  20% { transform: scale(1); }
+  85% { opacity: 1; transform: translateY(0); }
+  100% { transform: translateY(-12px); opacity: 0; }
+}
+.unlock-pop {
+  animation: unlock-pop 2.4s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+/* Sheen sweep across a button on hover */
+@keyframes hud-sheen {
+  0% { transform: translateX(-120%) skewX(-20deg); }
+  100% { transform: translateX(220%) skewX(-20deg); }
+}
+.btn-sheen {
+  position: relative;
+  overflow: hidden;
+}
+.btn-sheen::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 40%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.35), transparent);
+  transform: translateX(-120%) skewX(-20deg);
+  pointer-events: none;
+}
+.btn-sheen:hover::after {
+  animation: hud-sheen 0.7s ease;
+}
+
+/* Soft flicker for ambient screens */
+@keyframes screen-flicker {
+  0%, 100% { opacity: 0.9; }
+  50% { opacity: 1; }
+  52% { opacity: 0.82; }
+}
+.screen-flicker {
+  animation: screen-flicker 4s ease-in-out infinite;
 }
